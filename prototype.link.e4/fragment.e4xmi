@@ -4,7 +4,7 @@
     <elements xsi:type="commands:Command" xmi:id="_14f8cDi8EeeInLWSGSkzuA" elementId="prototype.link.e4.command.addlink" commandName="Add Link"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_r8ipoDi8EeeInLWSGSkzuA" featurename="handlers" parentElementId="xpath:/">
-    <elements xsi:type="commands:Handler" xmi:id="_6gYtkDi8EeeInLWSGSkzuA" elementId="prototype.link.e4.handler.addlink" contributionURI="bundleclass://prototype.link.core/prototype.link.core.AddLinkHandler" command="_14f8cDi8EeeInLWSGSkzuA"/>
+    <elements xsi:type="commands:Handler" xmi:id="_6gYtkDi8EeeInLWSGSkzuA" elementId="prototype.link.e4.handler.addlink" contributionURI="bundleclass://prototype.link.e4/prototype.link.e4.handler.AddLinkHandler" command="_14f8cDi8EeeInLWSGSkzuA"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_uNagEDi8EeeInLWSGSkzuA" featurename="menuContributions" parentElementId="xpath:/">
     <elements xsi:type="menu:MenuContribution" xmi:id="_TcMD0Di9EeeInLWSGSkzuA" elementId="prototype.link.e4.menucontribution.0" positionInParent="after=additions" parentId="popup">
