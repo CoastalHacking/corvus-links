@@ -1,6 +1,7 @@
  
 package prototype.link.e4.handler;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.core.resources.IResource;
@@ -11,8 +12,13 @@ import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.texteditor.ITextEditor;
 
+import prototype.link.api.LinkController;
 
-public class AddLinkHandler {
+
+public class AddHandler {
+
+	@Inject LinkController linkController;
+
 	@Execute
 	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) ITextSelection textSelection,
 			IEditorPart editorPart) {

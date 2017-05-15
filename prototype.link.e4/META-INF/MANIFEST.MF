@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Link Prototype
-Bundle-SymbolicName: prototype.link.e4;singleton:=true
+Bundle-SymbolicName: prototype.link.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.e4.ui.model.workbench;bundle-version="1.2.0.v20160229-1459",
  org.eclipse.e4.core.di,
@@ -13,4 +13,5 @@ Require-Bundle: org.eclipse.e4.ui.model.workbench;bundle-version="1.2.0.v2016022
  org.eclipse.ui.editors,
  org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Import-Package: javax.inject;version="1.0.0"
+Import-Package: javax.inject;version="1.0.0",
+ prototype.link.api
