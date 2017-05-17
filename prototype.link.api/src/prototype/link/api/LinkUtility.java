@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.jface.text.ITextSelection;
-import org.eclipse.ui.IEditorPart;
 
 public interface LinkUtility {
 
@@ -16,8 +14,6 @@ public interface LinkUtility {
 	void updateFrom(IMarker marker, Long id);
 	
 	void updateTo(IMarker marker, Long id);
-	
-	boolean validLinkDTO(LinkDTO dto); 
 
-	IMarker getMarkerAtSelection(IResource resource, ITextSelection textSelection);
+	IMarker getMarkerAtSelection(IResource resource, int charStart, int charEnd);
 }

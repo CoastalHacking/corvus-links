@@ -8,14 +8,10 @@ import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.e4.core.services.log.Logger;
-import org.eclipse.jface.text.ITextSelection;
-import org.eclipse.ui.IEditorPart;
 
 import prototype.link.api.Link;
-import prototype.link.api.LinkDTO;
 import prototype.link.api.LinkUtility;
 
 @SuppressWarnings("restriction")
@@ -86,24 +82,13 @@ public class LinkUtilityImpl implements LinkUtility {
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see prototype.link.api.LinkUtility#validLinkDTO(prototype.link.api.LinkDTO)
-	 */
-	@Override
-	public boolean validLinkDTO(LinkDTO dto) { 
-		return dto != null && dto.resource != null && dto.resource.exists();
-	}
-	
 	/*
 	 * (non-Javadoc)
 	 * @see prototype.link.api.LinkUtility#markerAtLocation(org.eclipse.core.resources.IResource, org.eclipse.jface.text.ITextSelection)
 	 */
 	@Override
-	public IMarker getMarkerAtSelection(IResource resource, ITextSelection textSelection) {
+	public IMarker getMarkerAtSelection(IResource resource, int charStart, int charEnd) {
 		IMarker marker = null;
-
-		final int charStart = textSelection.getOffset();
-		final int charEnd = textSelection.getOffset() + textSelection.getLength();
 
 		try {
 			for (IMarker m: resource.findMarkers(Link.LINK_TYPE, /*includeSubtypes*/true, /*?*/ IResource.DEPTH_ONE)) {

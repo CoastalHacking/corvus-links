@@ -14,13 +14,13 @@ import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.ui.IEditorPart;
 
 import prototype.link.api.Link;
-import prototype.link.api.LinkMarkerDTO;
+import prototype.link.api.LinkContext;
 import prototype.link.api.LinkUtility;
 
 
 public class AddHandler {
 
-	@Inject LinkMarkerDTO markerDTO;
+	@Inject LinkContext linkContext;
 	
 	@Inject LinkUtility linkUtility;
 
@@ -34,10 +34,18 @@ public class AddHandler {
 			return;
 		}
 
-		IMarker marker = linkUtility.getMarkerAtSelection(resource, textSelection);
+		final int charStart = textSelection.getOffset();
+		final int charEnd = textSelection.getOffset() + textSelection.getLength();
+		final int lineNumber = textSelection.getStartLine();
+		
+		// FIXME: execute logic via IWorkspace.run
+		IMarker marker = linkUtility.getMarkerAtSelection(resource, charStart, charEnd);
 		if (marker == null) {
 			try {
 				marker = resource.createMarker(Link.LINK_TYPE);
+				marker.setAttribute(IMarker.CHAR_START, charStart);
+				marker.setAttribute(IMarker.CHAR_END, charEnd);
+				marker.setAttribute(IMarker.LINE_NUMBER, lineNumber);
 			} catch (CoreException e) {
 				// TODO: debug log 
 				e.printStackTrace();
@@ -46,11 +54,11 @@ public class AddHandler {
 
 		}
 
-		if (markerDTO.marker != null) {
-			linkUtility.updateTo(markerDTO.marker, marker.getId());
-			linkUtility.updateFrom(marker, markerDTO.marker.getId());
+		if (linkContext.marker != null) {
+			linkUtility.updateTo(linkContext.marker, marker.getId());
+			linkUtility.updateFrom(marker, linkContext.marker.getId());
 		}
-		markerDTO.marker = marker;
+		linkContext.marker = marker;
 
 	}
 		

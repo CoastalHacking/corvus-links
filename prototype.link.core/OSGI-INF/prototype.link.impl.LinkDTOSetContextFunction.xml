@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="prototype.link.impl.LinkDTOSetContextFunction">
-   <property name="service.context.key" value="prototype.link.api.LinkDTOSet"/>
-   <service>
-      <provide interface="org.eclipse.e4.core.contexts.IContextFunction"/>
-   </service>
-   <implementation class="prototype.link.impl.LinkDTOSetContextFunction"/>
-</scr:component>

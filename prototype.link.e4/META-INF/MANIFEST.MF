@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Link Prototype
 Bundle-SymbolicName: prototype.link.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Require-Bundle: org.eclipse.e4.ui.model.workbench;bundle-version="1.2.0.v20160229-1459",
+Require-Bundle: org.eclipse.e4.ui.model.workbench,
  org.eclipse.e4.core.di,
  org.eclipse.e4.ui.services,
  org.eclipse.jface,

@@ -14,13 +14,8 @@ Import-Package: javax.inject;version="1.0.0",
  org.eclipse.e4.core.services.log,
  org.eclipse.e4.ui.model.application,
  org.eclipse.e4.ui.model.application.ui,
- org.eclipse.jface.text,
- org.eclipse.ui,
  org.osgi.service.component.annotations,
  prototype.link.api
 Bundle-ActivationPolicy: lazy
 Service-Component: OSGI-INF/prototype.link.impl.LinkUtilityContextFunction.xml,
- OSGI-INF/prototype.link.impl.LinkControllerContextFunction.xml,
- OSGI-INF/prototype.link.impl.LinkDTOFactoryContextFunction.xml,
- OSGI-INF/prototype.link.impl.LinkDTOSetContextFunction.xml,
- OSGI-INF/prototype.link.impl.LinkMarkerDTOContextFunction.xml
+ OSGI-INF/prototype.link.impl.LinkContextContextFunction.xml

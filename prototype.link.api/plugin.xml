@@ -17,46 +17,6 @@
       <persistent
             value="true">
       </persistent>
-      <super
-            type="org.eclipse.core.resources.textmarker">
-      </super>
-   </extension>
-   <extension
-         point="org.eclipse.ui.editors.markerAnnotationSpecification">
-    <specification
-          annotationType="protoype.link.annotation"
-			colorPreferenceKey="linkPointIndicationColor"
-			colorPreferenceValue="0,128,0"
-			contributesToHeader="true"
-			highlightPreferenceKey="linkIndicationHighlighting"
-			highlightPreferenceValue="false"
-			icon="icons/fugue/shadowless/arrow-000-medium.png"
-			includeOnPreferencePage="true"
-			isGoToNextNavigationTarget="true"
-			isGoToNextNavigationTargetKey="isLinkGoToNextNavigationTarget"
-			isGoToPreviousNavigationTarget="true"
-			isGoToPreviousNavigationTargetKey="isLinkGoToPreviousNavigationTarget"
-			label="Links"
-			overviewRulerPreferenceKey="linkPointIndicationOverviewRuler"
-			overviewRulerPreferenceValue="true"
-			presentationLayer="6"
-			showInNextPrevDropdownToolbarAction="true"
-			showInNextPrevDropdownToolbarActionKey="showLinkInNextPrevDropdownToolbarAction"
-			symbolicIcon="bookmark"
-			textPreferenceKey="linkPointIndication"
-			textPreferenceValue="true"
-			textStylePreferenceKey="linkTextStyle"
-			textStylePreferenceValue="UNDERLINE"
-			verticalRulerPreferenceKey="linkPointIndicationVerticalRuler"
-			verticalRulerPreferenceValue="true">
-      </specification>
-   </extension>
-   <extension
-         point="org.eclipse.ui.editors.annotationTypes">
-      <type
-            markerType="prototype.link.api.linkMarker"
-            name="protoype.link.annotation">
-      </type>
    </extension>
 
 </plugin>

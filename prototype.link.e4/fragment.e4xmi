@@ -2,40 +2,28 @@
 <fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_YWFncDi8EeeInLWSGSkzuA">
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_cMIE4Di8EeeInLWSGSkzuA" featurename="commands" parentElementId="xpath:/">
     <elements xsi:type="commands:Command" xmi:id="_14f8cDi8EeeInLWSGSkzuA" elementId="prototype.link.e4.command.addlink" commandName="Add Link"/>
-    <elements xsi:type="commands:Command" xmi:id="_nIkhgDkCEeeInLWSGSkzuA" elementId="prototype.link.e4.command.cancellink" commandName="Cancel Link"/>
     <elements xsi:type="commands:Command" xmi:id="_nwbLsDkCEeeInLWSGSkzuA" elementId="prototype.link.e4.command.endlink" commandName="End Link"/>
     <elements xsi:type="commands:Command" xmi:id="_oNrIYDkCEeeInLWSGSkzuA" elementId="prototype.link.e4.command.navigatelinks" commandName="Navigate Links"/>
-    <elements xsi:type="commands:Command" xmi:id="_3B5xsDkCEeeInLWSGSkzuA" elementId="prototype.link.e4.command.startlink" commandName="Start Link"/>
-    <elements xsi:type="commands:Command" xmi:id="_3f7xgDkCEeeInLWSGSkzuA" elementId="prototype.link.e4.command.undolink" commandName="Undo Link"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_r8ipoDi8EeeInLWSGSkzuA" featurename="handlers" parentElementId="xpath:/">
     <elements xsi:type="commands:Handler" xmi:id="_6gYtkDi8EeeInLWSGSkzuA" elementId="prototype.link.e4.handler.addlink" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.AddHandler" command="_14f8cDi8EeeInLWSGSkzuA"/>
-    <elements xsi:type="commands:Handler" xmi:id="_-FiMgDkCEeeInLWSGSkzuA" elementId="prototype.link.e4.handler.cancellink" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.CancelHandler" command="_nIkhgDkCEeeInLWSGSkzuA"/>
     <elements xsi:type="commands:Handler" xmi:id="_BcdFADkDEeeInLWSGSkzuA" elementId="prototype.link.e4.handler.endlink" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.EndHandler" command="_nwbLsDkCEeeInLWSGSkzuA"/>
     <elements xsi:type="commands:Handler" xmi:id="_B9IwMDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.handler.navigatelinks" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.NavigateHandler" command="_oNrIYDkCEeeInLWSGSkzuA"/>
-    <elements xsi:type="commands:Handler" xmi:id="_CaASYDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.handler.startlink" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.StartHandler" command="_3B5xsDkCEeeInLWSGSkzuA"/>
-    <elements xsi:type="commands:Handler" xmi:id="_C4flMDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.handler.undolink" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.UndoHandler" command="_3f7xgDkCEeeInLWSGSkzuA"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_uNagEDi8EeeInLWSGSkzuA" featurename="menuContributions" parentElementId="xpath:/">
     <elements xsi:type="menu:MenuContribution" xmi:id="_TcMD0Di9EeeInLWSGSkzuA" elementId="prototype.link.e4.menucontribution.0" positionInParent="after=additions" parentId="popup">
       <children xsi:type="menu:Menu" xmi:id="_UHKTcDi9EeeInLWSGSkzuA" elementId="prototype.link.e4.menu.prototype" label="Prototype">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_gtbQYDi9EeeInLWSGSkzuA" elementId="prototype.link.e4.menu.addlink" label="Add Link" command="_14f8cDi8EeeInLWSGSkzuA"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_RI8MADkDEeeInLWSGSkzuA" elementId="prototype.link.e4.menu.cancellink" label="Cancel Link" command="_nIkhgDkCEeeInLWSGSkzuA"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_VXvHsDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.menu.endlink" label="End Link" command="_nwbLsDkCEeeInLWSGSkzuA"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_XkViIDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.menu.navigatelinks" label="Navigate Links" command="_oNrIYDkCEeeInLWSGSkzuA"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_aUHiIDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.menu.startlink" label="Start Link" command="_3B5xsDkCEeeInLWSGSkzuA"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_ce1tQDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.handledmenuitem.undolink" label="Undo Link" command="_3f7xgDkCEeeInLWSGSkzuA"/>
       </children>
     </elements>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_xRzm4Dj4EeeInLWSGSkzuA" featurename="bindingTables" parentElementId="xpath:/">
     <elements xsi:type="commands:BindingTable" xmi:id="_13FI4Dj4EeeInLWSGSkzuA" elementId="prototype.link.e4.bindingtable.0" bindingContext="_Fw5vADj-EeeInLWSGSkzuA">
       <bindings xmi:id="_CYv5sDj5EeeInLWSGSkzuA" elementId="prototype.link.e4.keybinding.addlink" keySequence="M1+M2+A L A" command="_14f8cDi8EeeInLWSGSkzuA"/>
-      <bindings xmi:id="_jI4jYDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.keybinding.cancellink" keySequence="M1+M2+A L C" command="_nIkhgDkCEeeInLWSGSkzuA"/>
       <bindings xmi:id="_jf_b0DkDEeeInLWSGSkzuA" elementId="prototype.link.e4.keybinding.endlink" keySequence="M1+M2+A L E" command="_nwbLsDkCEeeInLWSGSkzuA"/>
       <bindings xmi:id="_j57l0DkDEeeInLWSGSkzuA" elementId="prototype.link.e4.keybinding.navigatelinks" keySequence="M1+M2+A L N" command="_oNrIYDkCEeeInLWSGSkzuA"/>
-      <bindings xmi:id="_kOHtIDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.keybinding.startlink" keySequence="M1+M2+A L S" command="_3B5xsDkCEeeInLWSGSkzuA"/>
-      <bindings xmi:id="_kh_rYDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.keybinding.undolink" keySequence="M1+M2+A L U" command="_3f7xgDkCEeeInLWSGSkzuA"/>
     </elements>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_C3RPcDj-EeeInLWSGSkzuA" featurename="bindingContexts" parentElementId="xpath:/">
