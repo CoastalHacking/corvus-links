@@ -1,29 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.4"?>
 <plugin>
+
    <extension
-         id="prototype.link.marker"
+         id="linkMarker"
          name="Link"
          point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.textmarker">
+      </super>
       <attribute
             name="link.to">
       </attribute>
       <attribute
             name="link.from">
       </attribute>
+      <persistent
+            value="true">
+      </persistent>
+      <super
+            type="org.eclipse.core.resources.textmarker">
+      </super>
    </extension>
    <extension
          point="org.eclipse.ui.editors.markerAnnotationSpecification">
-      <specification
-            annotationType="protoype.link.annotation"
-            colorPreferenceKey="linkPointIndicationColor"
-            includeOnPreferencePage="true">
+    <specification
+          annotationType="protoype.link.annotation"
+			colorPreferenceKey="linkPointIndicationColor"
+			colorPreferenceValue="0,128,0"
+			contributesToHeader="true"
+			highlightPreferenceKey="linkIndicationHighlighting"
+			highlightPreferenceValue="false"
+			icon="icons/fugue/shadowless/arrow-000-medium.png"
+			includeOnPreferencePage="true"
+			isGoToNextNavigationTarget="true"
+			isGoToNextNavigationTargetKey="isLinkGoToNextNavigationTarget"
+			isGoToPreviousNavigationTarget="true"
+			isGoToPreviousNavigationTargetKey="isLinkGoToPreviousNavigationTarget"
+			label="Links"
+			overviewRulerPreferenceKey="linkPointIndicationOverviewRuler"
+			overviewRulerPreferenceValue="true"
+			presentationLayer="6"
+			showInNextPrevDropdownToolbarAction="true"
+			showInNextPrevDropdownToolbarActionKey="showLinkInNextPrevDropdownToolbarAction"
+			symbolicIcon="bookmark"
+			textPreferenceKey="linkPointIndication"
+			textPreferenceValue="true"
+			textStylePreferenceKey="linkTextStyle"
+			textStylePreferenceValue="UNDERLINE"
+			verticalRulerPreferenceKey="linkPointIndicationVerticalRuler"
+			verticalRulerPreferenceValue="true">
       </specification>
    </extension>
    <extension
          point="org.eclipse.ui.editors.annotationTypes">
       <type
-            markerType="prototype.link.marker"
+            markerType="prototype.link.api.linkMarker"
             name="protoype.link.annotation">
       </type>
    </extension>

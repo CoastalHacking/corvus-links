@@ -9,12 +9,12 @@
     <elements xsi:type="commands:Command" xmi:id="_3f7xgDkCEeeInLWSGSkzuA" elementId="prototype.link.e4.command.undolink" commandName="Undo Link"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_r8ipoDi8EeeInLWSGSkzuA" featurename="handlers" parentElementId="xpath:/">
-    <elements xsi:type="commands:Handler" xmi:id="_6gYtkDi8EeeInLWSGSkzuA" elementId="prototype.link.e4.handler.addlink" contributionURI="bundleclass://prototype.link.ui/prototype.link.e4.handler.AddHandler" command="_14f8cDi8EeeInLWSGSkzuA"/>
-    <elements xsi:type="commands:Handler" xmi:id="_-FiMgDkCEeeInLWSGSkzuA" elementId="prototype.link.e4.handler.cancellink" contributionURI="bundleclass://prototype.link.ui/prototype.link.e4.handler.CancelHandler" command="_nIkhgDkCEeeInLWSGSkzuA"/>
-    <elements xsi:type="commands:Handler" xmi:id="_BcdFADkDEeeInLWSGSkzuA" elementId="prototype.link.e4.handler.endlink" contributionURI="bundleclass://prototype.link.ui/prototype.link.e4.handler.EndHandler" command="_nwbLsDkCEeeInLWSGSkzuA"/>
-    <elements xsi:type="commands:Handler" xmi:id="_B9IwMDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.handler.navigatelinks" contributionURI="bundleclass://prototype.link.ui/prototype.link.e4.handler.NavigateHandler" command="_oNrIYDkCEeeInLWSGSkzuA"/>
-    <elements xsi:type="commands:Handler" xmi:id="_CaASYDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.handler.startlink" contributionURI="bundleclass://prototype.link.ui/prototype.link.e4.handler.StartHandler" command="_3B5xsDkCEeeInLWSGSkzuA"/>
-    <elements xsi:type="commands:Handler" xmi:id="_C4flMDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.handler.undolink" contributionURI="bundleclass://prototype.link.ui/prototype.link.e4.handler.UndoHandler" command="_3f7xgDkCEeeInLWSGSkzuA"/>
+    <elements xsi:type="commands:Handler" xmi:id="_6gYtkDi8EeeInLWSGSkzuA" elementId="prototype.link.e4.handler.addlink" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.AddHandler" command="_14f8cDi8EeeInLWSGSkzuA"/>
+    <elements xsi:type="commands:Handler" xmi:id="_-FiMgDkCEeeInLWSGSkzuA" elementId="prototype.link.e4.handler.cancellink" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.CancelHandler" command="_nIkhgDkCEeeInLWSGSkzuA"/>
+    <elements xsi:type="commands:Handler" xmi:id="_BcdFADkDEeeInLWSGSkzuA" elementId="prototype.link.e4.handler.endlink" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.EndHandler" command="_nwbLsDkCEeeInLWSGSkzuA"/>
+    <elements xsi:type="commands:Handler" xmi:id="_B9IwMDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.handler.navigatelinks" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.NavigateHandler" command="_oNrIYDkCEeeInLWSGSkzuA"/>
+    <elements xsi:type="commands:Handler" xmi:id="_CaASYDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.handler.startlink" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.StartHandler" command="_3B5xsDkCEeeInLWSGSkzuA"/>
+    <elements xsi:type="commands:Handler" xmi:id="_C4flMDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.handler.undolink" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.UndoHandler" command="_3f7xgDkCEeeInLWSGSkzuA"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_uNagEDi8EeeInLWSGSkzuA" featurename="menuContributions" parentElementId="xpath:/">
     <elements xsi:type="menu:MenuContribution" xmi:id="_TcMD0Di9EeeInLWSGSkzuA" elementId="prototype.link.e4.menucontribution.0" positionInParent="after=additions" parentId="popup">

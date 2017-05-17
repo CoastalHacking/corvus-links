@@ -11,7 +11,9 @@ Require-Bundle: org.eclipse.e4.ui.model.workbench;bundle-version="1.2.0.v2016022
  org.eclipse.jface.text,
  org.eclipse.core.resources,
  org.eclipse.ui.editors,
- org.eclipse.core.runtime
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+ org.eclipse.core.runtime,
+ org.eclipse.e4.core.services
 Import-Package: javax.inject;version="1.0.0",
+ org.eclipse.e4.core.contexts,
  prototype.link.api
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

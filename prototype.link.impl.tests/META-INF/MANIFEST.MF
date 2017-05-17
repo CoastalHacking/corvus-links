@@ -6,7 +6,10 @@ Bundle-Version: 1.0.0.qualifier
 Fragment-Host: prototype.link.impl
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: org.eclipse.core.resources,
- prototype.link.api
+ org.eclipse.e4.core.contexts,
+ org.eclipse.e4.core.di.annotations,
+ org.osgi.framework;version="1.8.0",
+ org.osgi.util.tracker;version="1.5.1"
 Require-Bundle: org.mockito,
  org.junit;bundle-version="4.12.0",
  org.objenesis;bundle-version="1.0.0",
