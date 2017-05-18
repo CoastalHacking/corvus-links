@@ -1,15 +1,22 @@
 package prototype.link.impl;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.StringUtils;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.services.log.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import prototype.link.api.Link;
 import prototype.link.api.LinkUtility;
@@ -17,70 +24,11 @@ import prototype.link.api.LinkUtility;
 @SuppressWarnings("restriction")
 public class LinkUtilityImpl implements LinkUtility {
 
+	public static final String CONTAINER_KEY = "container_path";
+	public static final String RESOURCE_KEY = "resource_path";
+	public static final String MARKER_KEY = "marker_id";
+	
 	@Inject Logger logger;
-
-	/* (non-Javadoc)
-	 * @see prototype.link.api.LinkUtility#updateFrom(org.eclipse.core.resources.IMarker, java.lang.Long)
-	 */
-	@Override
-	public void updateFrom(IMarker marker, Long id) {
-		update(marker, id, /*from*/true);
-	}
-
-	/* (non-Javadoc)
-	 * @see prototype.link.api.LinkUtility#updateTo(org.eclipse.core.resources.IMarker, java.lang.Long)
-	 */
-	@Override
-	public void updateTo(IMarker marker, Long id) {
-		update(marker, id, /*from*/false);
-	}
-
-	protected void update(IMarker marker, Long id, boolean from) {
-		final String direction = from ? Link.LINK_FROM : Link.LINK_TO;
-
-		List<Long> results = get(marker, from);
-		if (!results.contains(id)) {
-			results.add(id);
-			try {
-				marker.setAttribute(direction, StringUtils.join(results, ","));
-			} catch (CoreException e) {
-				logger.warn(e);
-			}
-		}
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see prototype.link.api.LinkUtility#getFrom(org.eclipse.core.resources.IMarker)
-	 */
-	@Override
-	public List<Long> getFrom(IMarker marker) {
-		return get(marker, /*from*/true);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see prototype.link.api.LinkUtility#getTo(org.eclipse.core.resources.IMarker)
-	 */
-	@Override
-	public List<Long> getTo(IMarker marker) {
-		return get(marker, /*from*/false);
-	}
-	
-	protected List<Long> get(IMarker marker, boolean from) {
-		final String direction = from ? Link.LINK_FROM : Link.LINK_TO;
-		final List<Long> result = new ArrayList<>();
-		try {
-			if (marker.getType().equals(Link.LINK_TYPE)) {
-				String value = marker.getAttribute(direction, "");
-				result.addAll(parseAttribute(value));
-			}
-		} catch (CoreException e) {
-			logger.warn(e);
-		}
-
-		return result;
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -92,8 +40,8 @@ public class LinkUtilityImpl implements LinkUtility {
 
 		try {
 			for (IMarker m: resource.findMarkers(Link.LINK_TYPE, /*includeSubtypes*/true, /*?*/ IResource.DEPTH_ONE)) {
-				final int markerCharStart = safeInteger((String)m.getAttribute(IMarker.CHAR_START, "-1"));
-				final int markerCharEnd = safeInteger((String)m.getAttribute(IMarker.CHAR_END, "-1"));
+				final int markerCharStart = (Integer)m.getAttribute(IMarker.CHAR_START, -1);
+				final int markerCharEnd = (Integer)m.getAttribute(IMarker.CHAR_END, -1);
 
 				// if the start character is after this end character, skip
 				if (markerCharStart > charEnd)
@@ -113,15 +61,15 @@ public class LinkUtilityImpl implements LinkUtility {
 		return marker;
 	}
 	
-	protected List<Long> parseAttribute(String value) {
-		final List<Long> result = new ArrayList<>();
+	protected List<String> parseAttribute(String value) {
+		final List<String> result = new ArrayList<>();
 		if (value != null && !value.equals("") && !value.trim().equals("")) {
 			value = value.trim();
 			String[] splits = value.split(",");
 			for (String s: splits) {
 				s = s.trim();
 				try {
-					result.add(Long.parseLong(s));
+					result.add(s);
 				} catch (NumberFormatException e) {
 					logger.warn(e);
 				}
@@ -130,13 +78,103 @@ public class LinkUtilityImpl implements LinkUtility {
 		return result;
 	}
 
-	protected int safeInteger(String character) {
-		int result = -1;
+	/* (non-Javadoc)
+	 * @see prototype.link.api.LinkUtility#getMarkers(org.eclipse.core.resources.IMarker, prototype.link.api.Link.DIRECTION)
+	 */
+	@Override
+	public List<IMarker> getMarkers(IMarker marker, boolean from) {
+
+		final IWorkspaceRoot root = marker.getResource().getWorkspace().getRoot();
+		String attribute = from? Link.LINK_FROM : Link.LINK_TO;
+
+		final String jsonAttribute = marker.getAttribute(attribute, new JSONArray().toString());
+		final List<IMarker> results = new ArrayList<>();
+
 		try {
-			Integer.parseInt(character);
-		} catch (NumberFormatException e) {
-			logger.warn("Invalid character for expected integer value: " + character);
-		}
-		return result;
+			final JSONArray jsonMarkers = new JSONArray(jsonAttribute);
+			for (int i=0; i < jsonMarkers.length(); i++) {
+				final JSONObject jsonObject = jsonMarkers.getJSONObject(i);
+				final String containerString = jsonObject.getString(CONTAINER_KEY);
+				final String resourceString = jsonObject.getString(RESOURCE_KEY);
+				long markerId = jsonObject.getLong(MARKER_KEY);
+
+				final IPath containerPath = Path.fromPortableString(containerString);
+				if (containerPath == null)
+					continue;
+
+				final IResource resourceContainer = root.findMember(containerPath);
+				final IContainer container = resourceContainer.getAdapter(IContainer.class);
+				if (container == null)
+					continue;
+
+				final IPath resourcePath = Path.fromPortableString(resourceString);
+				if (resourcePath == null)
+					continue;
+				
+				final IResource resource = container.findMember(resourcePath);
+				if (resource != null &&  resource.exists()) {
+					IMarker m = resource.getMarker(markerId);
+					if (m != null)
+						results.add(m);
+				}
+			}
+		} catch (JSONException e) {
+			// TODO: log
+			e.printStackTrace();
+		}		
+
+		return results;
 	}
+
+	/* (non-Javadoc)
+	 * @see prototype.link.api.LinkUtility#updateMarker(org.eclipse.core.resources.IMarker, org.eclipse.core.resources.IMarker)
+	 */
+	@Override
+	public void updateMarkers(IMarker from, IMarker to) {
+		updateMarkers(from, Link.LINK_TO, to);
+		updateMarkers(to, Link.LINK_FROM, from);
+
+	}
+
+	/*
+	 * package-private for testability
+	 */
+	void updateMarkers(IMarker left, String attribute, IMarker right) {
+
+		String leftAttribute = left.getAttribute(attribute, new JSONArray().toString());
+		JSONArray leftArray;
+		try {
+			leftArray = new JSONArray(leftAttribute);
+			leftArray.put(toJSONObject(right));
+			// IMarker setAttribute contract
+			String leftArrayString = leftArray.toString();
+			if (leftArrayString.getBytes(StandardCharsets.UTF_8).length < 65535) {
+				left.setAttribute(attribute, leftArrayString);
+			} else {
+				// TODO: log
+				System.out.println("The marker attribute length is too damn high");
+			}
+		} catch (JSONException | CoreException e) {
+			// TODO: log
+			e.printStackTrace();
+		}
+	}
+
+	JSONObject toJSONObject(IMarker marker) throws JSONException {
+		final JSONObject object =  new JSONObject();
+		object.put(MARKER_KEY, marker.getId());
+
+		final IResource resource = marker.getResource();
+		final String resourcePath = resource.getProjectRelativePath().toPortableString();
+		object.put(RESOURCE_KEY, resourcePath);
+
+		final String containerPath = resource.getParent().getFullPath().toPortableString();
+		object.put(CONTAINER_KEY, containerPath);
+
+		return object;
+	}
+
+
+	
+
 }

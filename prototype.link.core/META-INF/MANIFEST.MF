@@ -14,6 +14,7 @@ Import-Package: javax.inject;version="1.0.0",
  org.eclipse.e4.core.services.log,
  org.eclipse.e4.ui.model.application,
  org.eclipse.e4.ui.model.application.ui,
+ org.json,
  org.osgi.service.component.annotations,
  prototype.link.api
 Bundle-ActivationPolicy: lazy

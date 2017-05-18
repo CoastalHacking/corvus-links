@@ -54,9 +54,9 @@ public class AddHandler {
 
 		}
 
+		// FIXME: execute logic via IWorkspace.run
 		if (linkContext.marker != null) {
-			linkUtility.updateTo(linkContext.marker, marker.getId());
-			linkUtility.updateFrom(marker, linkContext.marker.getId());
+			linkUtility.updateMarkers(linkContext.marker, marker);
 		}
 		linkContext.marker = marker;
 

@@ -7,13 +7,11 @@ import org.eclipse.core.resources.IResource;
 
 public interface LinkUtility {
 
-	List<Long> getFrom(IMarker marker);
+	List<IMarker> getMarkers(IMarker marker, boolean from);
 
-	List<Long> getTo(IMarker marker);
-
-	void updateFrom(IMarker marker, Long id);
-	
-	void updateTo(IMarker marker, Long id);
+	void updateMarkers(IMarker from, IMarker to);
 
 	IMarker getMarkerAtSelection(IResource resource, int charStart, int charEnd);
+	
+	
 }

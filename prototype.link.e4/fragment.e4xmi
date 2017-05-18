@@ -1,29 +1,45 @@
 <?xml version="1.0" encoding="ASCII"?>
 <fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_YWFncDi8EeeInLWSGSkzuA">
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_cMIE4Di8EeeInLWSGSkzuA" featurename="commands" parentElementId="xpath:/">
-    <elements xsi:type="commands:Command" xmi:id="_14f8cDi8EeeInLWSGSkzuA" elementId="prototype.link.e4.command.addlink" commandName="Add Link"/>
-    <elements xsi:type="commands:Command" xmi:id="_nwbLsDkCEeeInLWSGSkzuA" elementId="prototype.link.e4.command.endlink" commandName="End Link"/>
-    <elements xsi:type="commands:Command" xmi:id="_oNrIYDkCEeeInLWSGSkzuA" elementId="prototype.link.e4.command.navigatelinks" commandName="Navigate Links"/>
+    <elements xsi:type="commands:Command" xmi:id="_14f8cDi8EeeInLWSGSkzuA" elementId="prototype.link.ui.command.addlink" commandName="Add Link"/>
+    <elements xsi:type="commands:Command" xmi:id="_nwbLsDkCEeeInLWSGSkzuA" elementId="prototype.link.ui.command.endlink" commandName="End Link"/>
+    <elements xsi:type="commands:Command" xmi:id="_oNrIYDkCEeeInLWSGSkzuA" elementId="prototype.link.ui.command.navigateforwards" commandName="Navigate Forwards">
+      <parameters xmi:id="_EecpcDs_EeeVVdgpi9YxiA" elementId="prototype.link.ui.commandparameter.navigate" name="Navigate" optional="false"/>
+    </elements>
+    <elements xsi:type="commands:Command" xmi:id="_riGgoDs-EeeVVdgpi9YxiA" elementId="prototype.link.ui.command.navigatebacks" commandName="Navigate Backwards">
+      <parameters xmi:id="_qVNaQDs_EeeVVdgpi9YxiA" elementId="prototype.link.ui.commandparameter.navigate" name="Navigate" optional="false"/>
+    </elements>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_r8ipoDi8EeeInLWSGSkzuA" featurename="handlers" parentElementId="xpath:/">
-    <elements xsi:type="commands:Handler" xmi:id="_6gYtkDi8EeeInLWSGSkzuA" elementId="prototype.link.e4.handler.addlink" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.AddHandler" command="_14f8cDi8EeeInLWSGSkzuA"/>
-    <elements xsi:type="commands:Handler" xmi:id="_BcdFADkDEeeInLWSGSkzuA" elementId="prototype.link.e4.handler.endlink" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.EndHandler" command="_nwbLsDkCEeeInLWSGSkzuA"/>
-    <elements xsi:type="commands:Handler" xmi:id="_B9IwMDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.handler.navigatelinks" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.NavigateHandler" command="_oNrIYDkCEeeInLWSGSkzuA"/>
+    <elements xsi:type="commands:Handler" xmi:id="_6gYtkDi8EeeInLWSGSkzuA" elementId="prototype.link.ui.handler.addlink" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.AddHandler" command="_14f8cDi8EeeInLWSGSkzuA"/>
+    <elements xsi:type="commands:Handler" xmi:id="_BcdFADkDEeeInLWSGSkzuA" elementId="prototype.link.ui.handler.endlink" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.EndHandler" command="_nwbLsDkCEeeInLWSGSkzuA"/>
+    <elements xsi:type="commands:Handler" xmi:id="_B9IwMDkDEeeInLWSGSkzuA" elementId="prototype.link.ui.handler.navigateforwards" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.NavigateHandler" command="_oNrIYDkCEeeInLWSGSkzuA"/>
+    <elements xsi:type="commands:Handler" xmi:id="_xm5UoDs-EeeVVdgpi9YxiA" elementId="prototype.link.ui.handler.navigatebackwards" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.NavigateHandler" command="_riGgoDs-EeeVVdgpi9YxiA"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_uNagEDi8EeeInLWSGSkzuA" featurename="menuContributions" parentElementId="xpath:/">
-    <elements xsi:type="menu:MenuContribution" xmi:id="_TcMD0Di9EeeInLWSGSkzuA" elementId="prototype.link.e4.menucontribution.0" positionInParent="after=additions" parentId="popup">
-      <children xsi:type="menu:Menu" xmi:id="_UHKTcDi9EeeInLWSGSkzuA" elementId="prototype.link.e4.menu.prototype" label="Prototype">
+    <elements xsi:type="menu:MenuContribution" xmi:id="_TcMD0Di9EeeInLWSGSkzuA" elementId="prototype.link.ui.menucontribution.0" positionInParent="after=additions" parentId="popup">
+      <children xsi:type="menu:Menu" xmi:id="_UHKTcDi9EeeInLWSGSkzuA" elementId="prototype.link.e4.menu.prototype" label="Links">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_gtbQYDi9EeeInLWSGSkzuA" elementId="prototype.link.e4.menu.addlink" label="Add Link" command="_14f8cDi8EeeInLWSGSkzuA"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_VXvHsDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.menu.endlink" label="End Link" command="_nwbLsDkCEeeInLWSGSkzuA"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_XkViIDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.menu.navigatelinks" label="Navigate Links" command="_oNrIYDkCEeeInLWSGSkzuA"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_XkViIDkDEeeInLWSGSkzuA" elementId="prototype.link.ui.menu.navigateforwards" label="Navigate Forwards" command="_oNrIYDkCEeeInLWSGSkzuA">
+          <parameters xmi:id="_YZdJ4DtAEeeVVdgpi9YxiA" elementId="prototype.link.ui.handlemenuparam.navigateforwards" name="prototype.link.ui.commandparameter.navigate" value="forwards"/>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_e_vhYDtAEeeVVdgpi9YxiA" elementId="prototype.link.ui.menu.navigatebackwards" label="Navigate Backwards" command="_riGgoDs-EeeVVdgpi9YxiA">
+          <parameters xmi:id="_l7AqYDtAEeeVVdgpi9YxiA" elementId="prototype.link.ui.handlemenuparam.navigatebackwards" name="prototype.link.ui.commandparameter.navigate" value="backwards"/>
+        </children>
       </children>
     </elements>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_xRzm4Dj4EeeInLWSGSkzuA" featurename="bindingTables" parentElementId="xpath:/">
-    <elements xsi:type="commands:BindingTable" xmi:id="_13FI4Dj4EeeInLWSGSkzuA" elementId="prototype.link.e4.bindingtable.0" bindingContext="_Fw5vADj-EeeInLWSGSkzuA">
-      <bindings xmi:id="_CYv5sDj5EeeInLWSGSkzuA" elementId="prototype.link.e4.keybinding.addlink" keySequence="M1+M2+A L A" command="_14f8cDi8EeeInLWSGSkzuA"/>
-      <bindings xmi:id="_jf_b0DkDEeeInLWSGSkzuA" elementId="prototype.link.e4.keybinding.endlink" keySequence="M1+M2+A L E" command="_nwbLsDkCEeeInLWSGSkzuA"/>
-      <bindings xmi:id="_j57l0DkDEeeInLWSGSkzuA" elementId="prototype.link.e4.keybinding.navigatelinks" keySequence="M1+M2+A L N" command="_oNrIYDkCEeeInLWSGSkzuA"/>
+    <elements xsi:type="commands:BindingTable" xmi:id="_13FI4Dj4EeeInLWSGSkzuA" elementId="prototype.link.ui.bindingtable.0" bindingContext="_Fw5vADj-EeeInLWSGSkzuA">
+      <bindings xmi:id="_CYv5sDj5EeeInLWSGSkzuA" elementId="prototype.link.ui.keybinding.addlink" keySequence="M1+M2+A L A" command="_14f8cDi8EeeInLWSGSkzuA"/>
+      <bindings xmi:id="_jf_b0DkDEeeInLWSGSkzuA" elementId="prototype.link.ui.keybinding.endlink" keySequence="M1+M2+A L E" command="_nwbLsDkCEeeInLWSGSkzuA"/>
+      <bindings xmi:id="_6w9QcDs-EeeVVdgpi9YxiA" elementId="prototype.link.ui.keybinding.navigateforward" keySequence="M1+M2+A ]" command="_oNrIYDkCEeeInLWSGSkzuA">
+        <parameters xmi:id="_NcoP8DtAEeeVVdgpi9YxiA" elementId="prototype.link.ui.keybindingparam.navigateforward" name="prototype.link.ui.commandparameter.navigate" value="forwards"/>
+      </bindings>
+      <bindings xmi:id="_j57l0DkDEeeInLWSGSkzuA" elementId="prototype.link.ui.keybinding.navigatebackward" keySequence="M1+M2+A [" command="_riGgoDs-EeeVVdgpi9YxiA">
+        <parameters xmi:id="_ndIZ4Ds_EeeVVdgpi9YxiA" elementId="prototype.link.ui.keybindingparam.navigatebackward" name="prototype.link.ui.commandparameter.navigate" value="backwards"/>
+      </bindings>
     </elements>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_C3RPcDj-EeeInLWSGSkzuA" featurename="bindingContexts" parentElementId="xpath:/">

@@ -7,9 +7,18 @@ public interface Link {
 	 */
 	public String LINK_TYPE = "prototype.link.api.linkMarker";
 
-	public String LINK_TO = "link.to";
+	public String LINK_TO = "link_to";
 
-	public String LINK_FROM = "link.from";
-
+	public String LINK_FROM = "link_from";
+	
+	public String FORWARDS = "forwards";
+	
+	public String BACKWARDS = "backwards";
+	
 	public String CONTEXT_KEY = "prototype.link.context.key";
+	
+	public enum Direction {
+		FROM,
+		TO
+	}
 }

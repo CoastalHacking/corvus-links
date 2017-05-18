@@ -15,5 +15,6 @@ Require-Bundle: org.eclipse.e4.ui.model.workbench,
  org.eclipse.e4.core.services
 Import-Package: javax.inject;version="1.0.0",
  org.eclipse.e4.core.contexts,
+ org.eclipse.ui.ide,
  prototype.link.api
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
