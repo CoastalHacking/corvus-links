@@ -32,17 +32,17 @@
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_xRzm4Dj4EeeInLWSGSkzuA" featurename="bindingTables" parentElementId="xpath:/">
     <elements xsi:type="commands:BindingTable" xmi:id="_13FI4Dj4EeeInLWSGSkzuA" elementId="prototype.link.ui.bindingtable.0" bindingContext="_Fw5vADj-EeeInLWSGSkzuA">
-      <bindings xmi:id="_CYv5sDj5EeeInLWSGSkzuA" elementId="prototype.link.ui.keybinding.addlink" keySequence="M1+M2+A L A" command="_14f8cDi8EeeInLWSGSkzuA"/>
-      <bindings xmi:id="_jf_b0DkDEeeInLWSGSkzuA" elementId="prototype.link.ui.keybinding.endlink" keySequence="M1+M2+A L E" command="_nwbLsDkCEeeInLWSGSkzuA"/>
-      <bindings xmi:id="_6w9QcDs-EeeVVdgpi9YxiA" elementId="prototype.link.ui.keybinding.navigateforward" keySequence="M1+M2+A ]" command="_oNrIYDkCEeeInLWSGSkzuA">
+      <bindings xmi:id="_CYv5sDj5EeeInLWSGSkzuA" elementId="prototype.link.ui.keybinding.addlink" keySequence="M1+L A" command="_14f8cDi8EeeInLWSGSkzuA"/>
+      <bindings xmi:id="_jf_b0DkDEeeInLWSGSkzuA" elementId="prototype.link.ui.keybinding.endlink" keySequence="M1+L E" command="_nwbLsDkCEeeInLWSGSkzuA"/>
+      <bindings xmi:id="_6w9QcDs-EeeVVdgpi9YxiA" elementId="prototype.link.ui.keybinding.navigateforward" keySequence="M1+]" command="_oNrIYDkCEeeInLWSGSkzuA">
         <parameters xmi:id="_NcoP8DtAEeeVVdgpi9YxiA" elementId="prototype.link.ui.keybindingparam.navigateforward" name="prototype.link.ui.commandparameter.navigate" value="forwards"/>
       </bindings>
-      <bindings xmi:id="_j57l0DkDEeeInLWSGSkzuA" elementId="prototype.link.ui.keybinding.navigatebackward" keySequence="M1+M2+A [" command="_riGgoDs-EeeVVdgpi9YxiA">
+      <bindings xmi:id="_j57l0DkDEeeInLWSGSkzuA" elementId="prototype.link.ui.keybinding.navigatebackward" keySequence="M1+[" command="_riGgoDs-EeeVVdgpi9YxiA">
         <parameters xmi:id="_ndIZ4Ds_EeeVVdgpi9YxiA" elementId="prototype.link.ui.keybindingparam.navigatebackward" name="prototype.link.ui.commandparameter.navigate" value="backwards"/>
       </bindings>
     </elements>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_C3RPcDj-EeeInLWSGSkzuA" featurename="bindingContexts" parentElementId="xpath:/">
-    <elements xsi:type="commands:BindingContext" xmi:id="_Fw5vADj-EeeInLWSGSkzuA" elementId="org.eclipse.ui.contexts.window" name="Windows"/>
+    <elements xsi:type="commands:BindingContext" xmi:id="_Fw5vADj-EeeInLWSGSkzuA" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
   </fragments>
 </fragment:ModelFragments>
