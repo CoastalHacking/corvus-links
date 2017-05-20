@@ -14,6 +14,9 @@
       <attribute
             name="link.from">
       </attribute>
+      <attribute
+            name="message">
+      </attribute>
       <persistent
             value="true">
       </persistent>

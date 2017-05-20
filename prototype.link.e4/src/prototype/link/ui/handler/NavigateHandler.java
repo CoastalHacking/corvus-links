@@ -46,9 +46,15 @@ public class NavigateHandler {
 				Point point = text.getLocationAtOffset(caret);
 				point = text.toDisplay(point);
 
-				IMarker marker = linkUtility.getMarkerAtSelection(resource,
-						textSelection.getOffset(),
-						textSelection.getOffset() + textSelection.getLength());
+				int charStart = textSelection.getOffset();
+				int charEnd = charStart + textSelection.getLength();
+
+				// On Mac cannot trust an empty text selection
+				if (textSelection.getLength() == 0) {
+					charStart = charEnd = caret;
+				}
+
+				IMarker marker = linkUtility.getMarkerAtSelection(resource, charStart, charEnd);
 				
 				PopupDialog popupDialog = getPopupDialog(shell, page, marker, point, from);
 				popupDialog.open();

@@ -15,7 +15,7 @@ public class LinkContentProvider implements ITreeContentProvider {
 		this.linkUtility = linkUtility;
 		this.from = from;
 	}
-	
+
 	@Override
 	public Object[] getElements(Object inputElement) {
 		if (inputElement instanceof IMarker) {
@@ -27,7 +27,10 @@ public class LinkContentProvider implements ITreeContentProvider {
 
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		// TODO Auto-generated method stub
+		if (parentElement instanceof IMarker) {
+			final IMarker marker = (IMarker)parentElement;
+			return linkUtility.getMarkers(marker, from).toArray();
+		}
 		return null;
 	}
 
@@ -39,7 +42,10 @@ public class LinkContentProvider implements ITreeContentProvider {
 
 	@Override
 	public boolean hasChildren(Object element) {
-		// TODO Auto-generated method stub
+		if (element instanceof IMarker) {
+			final IMarker marker = (IMarker)element;
+			return linkUtility.hasLinks(marker, from);
+		}
 		return false;
 	}
 

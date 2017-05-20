@@ -9,21 +9,19 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IDE;
 
-import prototype.link.api.Link.Direction;
 import prototype.link.api.LinkUtility;
 
 public class LinkPopupDialog extends PopupDialog {
@@ -38,13 +36,13 @@ public class LinkPopupDialog extends PopupDialog {
 	public LinkPopupDialog(Shell parent, IWorkbenchPage page, IMarker marker, Point textPoint, LinkUtility linkUtility, boolean from) {
 		super(parent,
 				PopupDialog.INFOPOPUPRESIZE_SHELLSTYLE,
-				/*takeFocusOnOpen*/ false,
+				/*takeFocusOnOpen*/ true,
 				/*persistSize*/ false,
 				/*persistLocation*/ false,
 				/*showDialogMenu*/ false,
 				/*showPersistActions*/ true,
-				"this is the title this is the title this is the title",
-				"this is the info this is the info this is the info");
+				/*title*/ "Navigate " + (from ? "from" : "to"),
+				/*info*/ null);
 		this.textPoint = textPoint;
 		this.linkUtility = linkUtility;
 		this.from = from;
@@ -56,20 +54,42 @@ public class LinkPopupDialog extends PopupDialog {
 	 * @see org.eclipse.jface.dialogs.PopupDialog#createDialogArea(org.eclipse.swt.widgets.Composite)
 	 */
 	@Override
-	protected Control createDialogArea(Composite parent) {
-		viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL
+	protected Control createDialogArea(Composite dialogParent) {
+		
+		Composite composite = (Composite) super.createDialogArea(dialogParent);
+
+		viewer = new TreeViewer(composite, SWT.MULTI | SWT.H_SCROLL
                 | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
+
         viewer.setContentProvider(new LinkContentProvider(linkUtility, from));
 
-        viewer.getTree().setHeaderVisible(true);
+        final Tree tree = viewer.getTree();
+        tree.setHeaderVisible(true);
 
-        TreeViewerColumn resourceColumn = new TreeViewerColumn(viewer, SWT.NONE);
-        TreeColumn column = resourceColumn.getColumn();
-        column.setText("Resource");
-        column.setWidth(300);
-        resourceColumn.setLabelProvider(
+        // Set label providers
+        TreeViewerColumn resourceViewerColumn = new TreeViewerColumn(viewer, SWT.NONE);
+        TreeColumn resourceColumn = resourceViewerColumn.getColumn();
+        resourceColumn.setText("Resource");
+        resourceColumn.setWidth(100);
+        resourceViewerColumn.setLabelProvider(
         		new DelegatingStyledCellLabelProvider(
-        				new LinkLabelProvider()));
+        				new LinkLabelProvider.LinkResourceLabelProvider()));
+        
+        TreeViewerColumn locationViewerColumn = new TreeViewerColumn(viewer, SWT.NONE);
+        TreeColumn locationColumn = locationViewerColumn.getColumn();
+        locationColumn.setText("Location");
+        locationColumn.setWidth(100);
+        locationViewerColumn.setLabelProvider(
+        		new DelegatingStyledCellLabelProvider(
+        				new LinkLabelProvider.LinkLocationLabelProvider()));
+        
+        TreeViewerColumn selectionViewerColumn = new TreeViewerColumn(viewer, SWT.NONE);
+        TreeColumn selectionColumn = selectionViewerColumn.getColumn();
+        selectionColumn.setText("Selection");
+        selectionColumn.setWidth(100);
+        selectionViewerColumn.setLabelProvider(
+        		new DelegatingStyledCellLabelProvider(
+        				new LinkLabelProvider.LinkSelectionLabelProvider()));
 
         viewer.setInput(currentMarker);
 
@@ -79,31 +99,42 @@ public class LinkPopupDialog extends PopupDialog {
             public void doubleClick(DoubleClickEvent event) {
                 IStructuredSelection selection = (IStructuredSelection) event.getSelection();
                 IMarker marker = (IMarker)selection.getFirstElement();
-                try {
-					IEditorPart part = IDE.openEditor(page, marker);
-					part.toString();
-				} catch (PartInitException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-//                viewer.setExpandedState(first, !viewer.getExpandedState(first));
+				tree.getDisplay().asyncExec(new Runnable() {
+					 @Override
+					 public void run() {
+		                try {
+							IDE.openEditor(page, marker);
+		                	LinkPopupDialog.this.close();
+		
+						} catch (PartInitException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					 }
+				});
             }
         });
 
-        final Tree tree = (Tree) viewer.getControl();
-        tree.addSelectionListener(new SelectionAdapter() {
-          @Override
-          public void widgetSelected(SelectionEvent e) {
-              TreeItem item = (TreeItem) e.item;
-                if (item.getItemCount() > 0) {
-                    item.setExpanded(!item.getExpanded());
-                    // update the viewer
-                    viewer.refresh();
-                }
-            }
-        });
+        // http://www.vogella.com/tutorials/EclipseJFaceTree/article.html#adjusting-tree-columns-treecolumns-on-expand
+        tree.addListener(SWT.Expand, new Listener() {
 
-		return tree;
+			@Override
+			public void handleEvent(Event event) {
+				TreeItem treeItem = (TreeItem)event.item;
+				final TreeColumn[] treeColumns = treeItem.getParent().getColumns();
+				tree.getDisplay().asyncExec(new Runnable() {
+
+					 @Override
+					 public void run() {
+					    for (TreeColumn treeColumn : treeColumns)
+					         treeColumn.pack();
+					 }
+				});
+			}
+		});
+
+        return composite;
+
 	}
 
 	/* (non-Javadoc)
@@ -113,4 +144,5 @@ public class LinkPopupDialog extends PopupDialog {
 	protected Point getDefaultLocation(Point initialSize) {
 		return textPoint;
 	}
+
 }

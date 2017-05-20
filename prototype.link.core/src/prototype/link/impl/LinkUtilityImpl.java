@@ -85,7 +85,7 @@ public class LinkUtilityImpl implements LinkUtility {
 	public List<IMarker> getMarkers(IMarker marker, boolean from) {
 
 		final IWorkspaceRoot root = marker.getResource().getWorkspace().getRoot();
-		String attribute = from? Link.LINK_FROM : Link.LINK_TO;
+		String attribute = getAttribute(from);
 
 		final String jsonAttribute = marker.getAttribute(attribute, new JSONArray().toString());
 		final List<IMarker> results = new ArrayList<>();
@@ -141,10 +141,10 @@ public class LinkUtilityImpl implements LinkUtility {
 	 */
 	void updateMarkers(IMarker left, String attribute, IMarker right) {
 
-		String leftAttribute = left.getAttribute(attribute, new JSONArray().toString());
-		JSONArray leftArray;
+//		String leftAttribute = left.getAttribute(attribute, new JSONArray().toString());
+		JSONArray leftArray = getJSONAttribute(left, attribute);
 		try {
-			leftArray = new JSONArray(leftAttribute);
+//			leftArray = new JSONArray(leftAttribute);
 			leftArray.put(toJSONObject(right));
 			// IMarker setAttribute contract
 			String leftArrayString = leftArray.toString();
@@ -174,7 +174,32 @@ public class LinkUtilityImpl implements LinkUtility {
 		return object;
 	}
 
+	/* (non-Javadoc)
+	 * @see prototype.link.api.LinkUtility#hasLinks(org.eclipse.core.resources.IMarker, boolean)
+	 */
+	@Override
+	public boolean hasLinks(IMarker marker, boolean from) {
+		return getJSONAttribute(marker, getAttribute(from)).length() > 0;
+	}
 
+	String getAttribute(boolean from) {
+		return from ? Link.LINK_FROM : Link.LINK_TO;
+	}
+
+	JSONArray getJSONAttribute(IMarker marker, String attribute) {
+//		String attribute = from? Link.LINK_FROM : Link.LINK_TO;
+		final JSONArray emptyArray = new JSONArray();
+		final String jsonAttribute = marker.getAttribute(attribute, emptyArray.toString());
+		JSONArray result;
+		try {
+			result = new JSONArray(jsonAttribute);
+		} catch (JSONException e) {
+			// TODO: log
+			e.printStackTrace();
+			result = emptyArray;
+		}
+		return result;
+	}
 	
 
 }

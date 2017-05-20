@@ -13,5 +13,5 @@ public interface LinkUtility {
 
 	IMarker getMarkerAtSelection(IResource resource, int charStart, int charEnd);
 	
-	
+	boolean hasLinks(IMarker marker, boolean from);
 }

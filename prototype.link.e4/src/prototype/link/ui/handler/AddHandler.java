@@ -37,6 +37,7 @@ public class AddHandler {
 		final int charStart = textSelection.getOffset();
 		final int charEnd = textSelection.getOffset() + textSelection.getLength();
 		final int lineNumber = textSelection.getStartLine();
+		final String message = textSelection.getText();
 		
 		// FIXME: execute logic via IWorkspace.run
 		IMarker marker = linkUtility.getMarkerAtSelection(resource, charStart, charEnd);
@@ -46,6 +47,7 @@ public class AddHandler {
 				marker.setAttribute(IMarker.CHAR_START, charStart);
 				marker.setAttribute(IMarker.CHAR_END, charEnd);
 				marker.setAttribute(IMarker.LINE_NUMBER, lineNumber);
+				marker.setAttribute(IMarker.MESSAGE, message);
 			} catch (CoreException e) {
 				// TODO: debug log 
 				e.printStackTrace();
