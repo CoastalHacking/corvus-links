@@ -99,19 +99,14 @@ public class LinkPopupDialog extends PopupDialog {
             public void doubleClick(DoubleClickEvent event) {
                 IStructuredSelection selection = (IStructuredSelection) event.getSelection();
                 IMarker marker = (IMarker)selection.getFirstElement();
-				tree.getDisplay().asyncExec(new Runnable() {
-					 @Override
-					 public void run() {
-		                try {
-							IDE.openEditor(page, marker);
-		                	LinkPopupDialog.this.close();
-		
-						} catch (PartInitException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					 }
-				});
+                try {
+                	LinkPopupDialog.this.close();
+					IDE.openEditor(page, marker);
+
+				} catch (PartInitException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
