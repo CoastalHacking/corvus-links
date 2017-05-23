@@ -14,15 +14,12 @@ import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.ui.IEditorPart;
 
 import prototype.link.api.Link;
-import prototype.link.api.LinkContext;
-import prototype.link.api.LinkUtility;
+import prototype.link.api.LinkController;
 
 
 public class AddHandler {
-
-	@Inject LinkContext linkContext;
 	
-	@Inject LinkUtility linkUtility;
+	@Inject LinkController linkController;
 
 	@Execute
 	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) ITextSelection textSelection,
@@ -38,9 +35,9 @@ public class AddHandler {
 		final int charEnd = textSelection.getOffset() + textSelection.getLength();
 		final int lineNumber = textSelection.getStartLine();
 		final String message = textSelection.getText();
-		
+
 		// FIXME: execute logic via IWorkspace.run
-		IMarker marker = linkUtility.getMarkerAtSelection(resource, charStart, charEnd);
+		IMarker marker = linkController.getMarkerAtSelection(resource, charStart, charEnd);
 		if (marker == null) {
 			try {
 				marker = resource.createMarker(Link.LINK_TYPE);
@@ -55,12 +52,6 @@ public class AddHandler {
 			}
 
 		}
-
-		// FIXME: execute logic via IWorkspace.run
-		if (linkContext.marker != null) {
-			linkUtility.updateMarkers(linkContext.marker, marker);
-		}
-		linkContext.marker = marker;
 
 	}
 		

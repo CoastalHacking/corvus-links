@@ -19,21 +19,22 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.texteditor.ITextEditor;
 
 import prototype.link.api.Link;
-import prototype.link.api.LinkUtility;
+import prototype.link.api.Link.Direction;
+import prototype.link.api.LinkController;
 import prototype.link.ui.popup.LinkPopupDialog;
 
 public class NavigateHandler {
 	
-	@Inject LinkUtility linkUtility;
+	@Inject LinkController linkController;
 
 	@Execute
 	public void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell,
 			@Named(IServiceConstants.ACTIVE_SELECTION) ITextSelection textSelection,
 			IEditorPart editorPart,
 			IWorkbenchPage page,
-			@Named("prototype.link.ui.commandparameter.navigate") String direction) {
+			@Named("prototype.link.ui.commandparameter.navigate") String directionParam) {
 
-		boolean from = Link.BACKWARDS.equals(direction);
+		Direction direction = Link.BACKWARDS.equals(directionParam) ? Direction.FROM : Direction.TO;
 
 		final IResource resource = Adapters.adapt(editorPart.getEditorInput(), IResource.class);
 
@@ -54,16 +55,16 @@ public class NavigateHandler {
 					charStart = charEnd = caret;
 				}
 
-				IMarker marker = linkUtility.getMarkerAtSelection(resource, charStart, charEnd);
+				IMarker marker = linkController.getMarkerAtSelection(resource, charStart, charEnd);
 				
-				PopupDialog popupDialog = getPopupDialog(shell, page, marker, point, from);
+				PopupDialog popupDialog = getPopupDialog(shell, page, marker, point, direction);
 				popupDialog.open();
 			}
 		}	
 	}
 
 	private PopupDialog getPopupDialog(Shell shell, IWorkbenchPage page, IMarker marker,
-			Point point, boolean from) {
-		return new LinkPopupDialog(shell, page, marker, point, linkUtility, from);
+			Point point, Direction direction) {
+		return new LinkPopupDialog(shell, page, marker, point, linkController, direction);
 	}
 }

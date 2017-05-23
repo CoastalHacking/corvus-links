@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="prototype.link.impl.LinkResourceListenerComponent">
+   <service>
+      <provide interface="prototype.link.impl.LinkResourceListenerComponent"/>
+   </service>
+   <reference bind="setLinkController" cardinality="1..1" interface="prototype.link.api.LinkController" name="LinkController" policy="static" unbind="unsetLinkController"/>
+   <reference bind="setWorkspace" cardinality="1..1" interface="org.eclipse.core.resources.IWorkspace" name="Workspace" policy="static" unbind="unsetWorkspace"/>
+   <implementation class="prototype.link.impl.LinkResourceListenerComponent"/>
+</scr:component>

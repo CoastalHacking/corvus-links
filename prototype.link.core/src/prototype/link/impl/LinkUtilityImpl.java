@@ -27,8 +27,9 @@ public class LinkUtilityImpl implements LinkUtility {
 	public static final String CONTAINER_KEY = "container_path";
 	public static final String RESOURCE_KEY = "resource_path";
 	public static final String MARKER_KEY = "marker_id";
-	
+
 	@Inject Logger logger;
+
 
 	/*
 	 * (non-Javadoc)
@@ -59,23 +60,6 @@ public class LinkUtilityImpl implements LinkUtility {
 			logger.warn(e);
 		}
 		return marker;
-	}
-	
-	protected List<String> parseAttribute(String value) {
-		final List<String> result = new ArrayList<>();
-		if (value != null && !value.equals("") && !value.trim().equals("")) {
-			value = value.trim();
-			String[] splits = value.split(",");
-			for (String s: splits) {
-				s = s.trim();
-				try {
-					result.add(s);
-				} catch (NumberFormatException e) {
-					logger.warn(e);
-				}
-			}
-		}
-		return result;
 	}
 
 	/* (non-Javadoc)
@@ -139,25 +123,37 @@ public class LinkUtilityImpl implements LinkUtility {
 	/*
 	 * package-private for testability
 	 */
-	void updateMarkers(IMarker left, String attribute, IMarker right) {
+	void updateMarkers(IMarker source, String attribute, IMarker object) {
 
 //		String leftAttribute = left.getAttribute(attribute, new JSONArray().toString());
-		JSONArray leftArray = getJSONAttribute(left, attribute);
+		JSONArray array = getJSONAttribute(source, attribute);
 		try {
 //			leftArray = new JSONArray(leftAttribute);
-			leftArray.put(toJSONObject(right));
+			array.put(toJSONObject(object));
+			updateMarker(source, attribute, array);
 			// IMarker setAttribute contract
-			String leftArrayString = leftArray.toString();
-			if (leftArrayString.getBytes(StandardCharsets.UTF_8).length < 65535) {
-				left.setAttribute(attribute, leftArrayString);
-			} else {
-				// TODO: log
-				System.out.println("The marker attribute length is too damn high");
-			}
+//			String leftArrayString = leftArray.toString();
+//			if (leftArrayString.getBytes(StandardCharsets.UTF_8).length < 65535) {
+//				left.setAttribute(attribute, leftArrayString);
+//			} else {
+//				// TODO: log
+//				System.out.println("The marker attribute length is too damn high");
+//			}
 		} catch (JSONException | CoreException e) {
 			// TODO: log
 			e.printStackTrace();
 		}
+	}
+
+	void updateMarker(IMarker marker, String attribute, JSONArray array) throws CoreException {
+		final String value = array.toString();
+		if (value.getBytes(StandardCharsets.UTF_8).length < 65535) {
+			marker.setAttribute(attribute, value);
+		} else {
+			// TODO: log
+			System.out.println("The marker attribute length is too damn high");
+		}
+
 	}
 
 	JSONObject toJSONObject(IMarker marker) throws JSONException {
@@ -186,6 +182,10 @@ public class LinkUtilityImpl implements LinkUtility {
 		return from ? Link.LINK_FROM : Link.LINK_TO;
 	}
 
+	JSONArray getJSONAttribute(IMarker marker, boolean from) {
+		return getJSONAttribute(marker, getAttribute(from));
+	}
+	
 	JSONArray getJSONAttribute(IMarker marker, String attribute) {
 //		String attribute = from? Link.LINK_FROM : Link.LINK_TO;
 		final JSONArray emptyArray = new JSONArray();
@@ -200,6 +200,63 @@ public class LinkUtilityImpl implements LinkUtility {
 		}
 		return result;
 	}
+
 	
+	/* (non-Javadoc)
+	 * @see prototype.link.api.LinkUtility#breakLinks(org.eclipse.core.resources.IMarker)
+	 */
+	@Override
+	public void breakLinks(IMarker marker) {
+
+		for (boolean direction: new boolean[]{true, false}) {
+			for (IMarker m: getMarkers(marker, direction)) {
+				try {
+					// invert the direction, since the subject is now the object and vice versa
+					removeLink(m, !direction, marker);
+				} catch (JSONException | CoreException e) {
+					// TODO log
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+
+	/*
+	 * returns true if link removed
+	 */
+	boolean removeLink(IMarker subject, boolean from, IMarker object) throws JSONException, CoreException {
+		JSONArray array = getJSONAttribute(subject, from);
+		boolean removed = false;
+
+		final JSONObject removeObject = toJSONObject(object);
+		
+		int removeIndex = -1;
+		for (int i=0; i<array.length(); i++) {
+
+			if (equalLinks(array.getJSONObject(i), removeObject)) {
+				removeIndex = i;
+				break;
+			}
+		}
+		if (removeIndex != -1) {
+			removed = true;
+			array.remove(removeIndex);
+			updateMarker(subject, getAttribute(from), array);
+		}
+		return removed;
+	}
+	
+	boolean equalLinks(JSONObject subject, JSONObject object) {
+		boolean result;
+		try {
+			result = subject.getString(CONTAINER_KEY).equals(object.getString(CONTAINER_KEY));
+			result &= subject.getString(RESOURCE_KEY).equals(object.getString(RESOURCE_KEY));
+			result &= subject.getString(MARKER_KEY).equals(object.getString(MARKER_KEY));
+		} catch (JSONException e) {
+			result = false;
+		}
+		return result;
+	}
 
 }

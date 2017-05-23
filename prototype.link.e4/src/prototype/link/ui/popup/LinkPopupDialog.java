@@ -2,6 +2,7 @@ package prototype.link.ui.popup;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.jface.dialogs.PopupDialog;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
@@ -22,18 +23,19 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IDE;
 
-import prototype.link.api.LinkUtility;
+import prototype.link.api.Link.Direction;
+import prototype.link.api.LinkController;
 
 public class LinkPopupDialog extends PopupDialog {
 
 	private Point textPoint;
 	private TreeViewer viewer;
-	private LinkUtility linkUtility;
-	private boolean from;
+	private LinkController linkController;
 	private IMarker currentMarker;
 	private IWorkbenchPage page;
+	private Direction direction;
 
-	public LinkPopupDialog(Shell parent, IWorkbenchPage page, IMarker marker, Point textPoint, LinkUtility linkUtility, boolean from) {
+	public LinkPopupDialog(Shell parent, IWorkbenchPage page, IMarker marker, Point textPoint, LinkController linkController, Direction direction) {
 		super(parent,
 				PopupDialog.INFOPOPUPRESIZE_SHELLSTYLE,
 				/*takeFocusOnOpen*/ true,
@@ -41,11 +43,12 @@ public class LinkPopupDialog extends PopupDialog {
 				/*persistLocation*/ false,
 				/*showDialogMenu*/ false,
 				/*showPersistActions*/ true,
-				/*title*/ "Navigate " + (from ? "from" : "to"),
+				/*title*/ "Navigate " + (direction == Direction.FROM ? "from" : "to"),
 				/*info*/ null);
 		this.textPoint = textPoint;
-		this.linkUtility = linkUtility;
-		this.from = from;
+		this.linkController = linkController;
+//		this.from = from;
+		this.direction = direction;
 		this.currentMarker = marker;
 		this.page = page;
 	}
@@ -61,7 +64,8 @@ public class LinkPopupDialog extends PopupDialog {
 		viewer = new TreeViewer(composite, SWT.MULTI | SWT.H_SCROLL
                 | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 
-        viewer.setContentProvider(new LinkContentProvider(linkUtility, from));
+//        viewer.setContentProvider(new LinkContentProvider(linkUtility, from));
+		viewer.setContentProvider(new LinkContentProvider(linkController, direction));
 
         final Tree tree = viewer.getTree();
         tree.setHeaderVisible(true);
@@ -128,6 +132,7 @@ public class LinkPopupDialog extends PopupDialog {
 			}
 		});
 
+        GridDataFactory.fillDefaults().grab(true, true).applyTo(tree);
         return composite;
 
 	}

@@ -14,4 +14,11 @@ public interface LinkUtility {
 	IMarker getMarkerAtSelection(IResource resource, int charStart, int charEnd);
 	
 	boolean hasLinks(IMarker marker, boolean from);
+
+	/**
+	 * Removes references of marker from its to and from attributes
+	 * 
+	 * @param marker
+	 */
+	void breakLinks(IMarker marker);	
 }
