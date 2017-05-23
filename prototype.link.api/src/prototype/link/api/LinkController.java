@@ -10,6 +10,8 @@ import prototype.link.api.Link.Direction;
 public interface LinkController {
 
 	void addLink(IMarker subject);
+	
+	void continueLink(IMarker subject);
 
 	void endLink();
 

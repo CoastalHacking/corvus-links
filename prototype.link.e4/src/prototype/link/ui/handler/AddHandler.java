@@ -40,6 +40,7 @@ public class AddHandler {
 		IMarker marker = linkController.getMarkerAtSelection(resource, charStart, charEnd);
 		if (marker == null) {
 			try {
+				// Resource listener creates link model when marker created 
 				marker = resource.createMarker(Link.LINK_TYPE);
 				marker.setAttribute(IMarker.CHAR_START, charStart);
 				marker.setAttribute(IMarker.CHAR_END, charEnd);
@@ -50,7 +51,9 @@ public class AddHandler {
 				e.printStackTrace();
 				return;
 			}
-
+		} else {
+			// otherwise we continue a previously added link
+			linkController.continueLink(marker);
 		}
 
 	}

@@ -43,6 +43,6 @@
     </elements>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_C3RPcDj-EeeInLWSGSkzuA" featurename="bindingContexts" parentElementId="xpath:/">
-    <elements xsi:type="commands:BindingContext" xmi:id="_Fw5vADj-EeeInLWSGSkzuA" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
+    <elements xsi:type="commands:BindingContext" xmi:id="_Fw5vADj-EeeInLWSGSkzuA" elementId="org.eclipse.ui.textEditorScope" name="Editing Text"/>
   </fragments>
 </fragment:ModelFragments>

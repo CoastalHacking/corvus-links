@@ -38,13 +38,30 @@ public abstract class AbstractLinkControllerImpl implements LinkController {
 	 */
 	@Override
 	public void addLink(IMarker subject) {
+
+			addOrContinueLink(subject, /*create*/true);
+	}
+
+	/* (non-Javadoc)
+	 * @see prototype.link.api.LinkController#continueLink(org.eclipse.core.resources.IMarker)
+	 */
+	@Override
+	public void continueLink(IMarker subject) {
+
+		addOrContinueLink(subject, /*create*/false);
 		
+	}
+	
+	public void addOrContinueLink(IMarker subject, boolean create) {
 		// TODO: refactor to use an EMF command and transaction
 		// Otherwise EMF requires external synchronization
 		synchronized (lock) {
 
 			LinkMarker linkMarker = getOrCreateLinkMarkerNoLock(subject, /*create*/true);
-	
+
+			if (linkMarker == null)
+				return;
+			
 			// Now link with last marker
 			final LinkMarker lastLinkMarker = atomicLastLinkMarker.get();
 			if (lastLinkMarker != null) {
@@ -55,7 +72,6 @@ public abstract class AbstractLinkControllerImpl implements LinkController {
 			// And replace last marker if it wasn't replaced
 			atomicLastLinkMarker.compareAndSet(lastLinkMarker, linkMarker);
 		}
-
 	}
 
 	/* (non-Javadoc)
