@@ -5,29 +5,20 @@ Bundle-SymbolicName: prototype.link.impl;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: javax.inject;version="1.0.0",
- org.apache.commons.lang3,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
  org.eclipse.core.runtime.jobs,
- org.eclipse.e4.core.contexts,
- org.eclipse.e4.core.di,
- org.eclipse.e4.core.services.log,
- org.eclipse.e4.ui.model.application,
- org.eclipse.e4.ui.model.application.ui,
  org.eclipse.emf.common,
  org.eclipse.emf.common.util,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.resource,
  org.eclipse.emf.ecore.resource.impl,
  org.eclipse.osgi.service.datalocation;version="1.3.0",
- org.json,
  org.osgi.framework;version="1.8.0",
  org.osgi.service.component;version="1.2.2",
  org.osgi.service.component.annotations,
  prototype.link.api,
  prototype.link.model
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGI-INF/prototype.link.impl.LinkUtilityContextFunction.xml,
- OSGI-INF/prototype.link.impl.LinkContextContextFunction.xml,
- OSGI-INF/prototype.link.impl.LinkControllerComponent.xml,
+Service-Component: OSGI-INF/prototype.link.impl.LinkControllerComponent.xml,
  OSGI-INF/prototype.link.impl.LinkResourceListenerComponent.xml

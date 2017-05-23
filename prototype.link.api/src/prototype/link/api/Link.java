@@ -3,19 +3,19 @@ package prototype.link.api;
 public interface Link {
 
 	/**
-	 * Marker type. Type is plug-in ID + marker type ID
+	 * Marker type. Type is required to be plug-in ID + marker type ID
 	 */
 	public String LINK_TYPE = "prototype.link.api.linkMarker";
 
-	public String LINK_TO = "link_to";
-
-	public String LINK_FROM = "link_from";
-	
+	/**
+	 * Used by command parameters
+	 */
 	public String FORWARDS = "forwards";
-	
+
+	/**
+	 * Used by command parameters
+	 */
 	public String BACKWARDS = "backwards";
-	
-	public String CONTEXT_KEY = "prototype.link.context.key";
 	
 	public enum Direction {
 		FROM,

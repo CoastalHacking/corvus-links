@@ -17,7 +17,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import prototype.link.api.Link;
 
 @RunWith(MockitoJUnitRunner.class)
-public class LinkUtilityImplTest extends LinkUtilityImpl {
+public class LinkUtilityImplTest {
 
 //	@Test
 //	public void testUpdateFrom() throws Exception {
