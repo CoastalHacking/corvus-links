@@ -297,13 +297,49 @@ public interface LinksPackage extends EPackage {
 	int LINK_MARKER__FROM = MARKER_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Message</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_MARKER__MESSAGE = MARKER_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Line Number</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_MARKER__LINE_NUMBER = MARKER_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Char Start</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_MARKER__CHAR_START = MARKER_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Char End</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_MARKER__CHAR_END = MARKER_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Link Marker</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_MARKER_FEATURE_COUNT = MARKER_FEATURE_COUNT + 2;
+	int LINK_MARKER_FEATURE_COUNT = MARKER_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of operations of the '<em>Link Marker</em>' class.
@@ -487,6 +523,50 @@ public interface LinksPackage extends EPackage {
 	EReference getLinkMarker_From();
 
 	/**
+	 * Returns the meta object for the attribute '{@link prototype.link.model.LinkMarker#getMessage <em>Message</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Message</em>'.
+	 * @see prototype.link.model.LinkMarker#getMessage()
+	 * @see #getLinkMarker()
+	 * @generated
+	 */
+	EAttribute getLinkMarker_Message();
+
+	/**
+	 * Returns the meta object for the attribute '{@link prototype.link.model.LinkMarker#getLineNumber <em>Line Number</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Line Number</em>'.
+	 * @see prototype.link.model.LinkMarker#getLineNumber()
+	 * @see #getLinkMarker()
+	 * @generated
+	 */
+	EAttribute getLinkMarker_LineNumber();
+
+	/**
+	 * Returns the meta object for the attribute '{@link prototype.link.model.LinkMarker#getCharStart <em>Char Start</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Char Start</em>'.
+	 * @see prototype.link.model.LinkMarker#getCharStart()
+	 * @see #getLinkMarker()
+	 * @generated
+	 */
+	EAttribute getLinkMarker_CharStart();
+
+	/**
+	 * Returns the meta object for the attribute '{@link prototype.link.model.LinkMarker#getCharEnd <em>Char End</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Char End</em>'.
+	 * @see prototype.link.model.LinkMarker#getCharEnd()
+	 * @see #getLinkMarker()
+	 * @generated
+	 */
+	EAttribute getLinkMarker_CharEnd();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -646,6 +726,38 @@ public interface LinksPackage extends EPackage {
 		 * @generated
 		 */
 		EReference LINK_MARKER__FROM = eINSTANCE.getLinkMarker_From();
+
+		/**
+		 * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LINK_MARKER__MESSAGE = eINSTANCE.getLinkMarker_Message();
+
+		/**
+		 * The meta object literal for the '<em><b>Line Number</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LINK_MARKER__LINE_NUMBER = eINSTANCE.getLinkMarker_LineNumber();
+
+		/**
+		 * The meta object literal for the '<em><b>Char Start</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LINK_MARKER__CHAR_START = eINSTANCE.getLinkMarker_CharStart();
+
+		/**
+		 * The meta object literal for the '<em><b>Char End</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LINK_MARKER__CHAR_END = eINSTANCE.getLinkMarker_CharEnd();
 
 	}
 

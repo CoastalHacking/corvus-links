@@ -18,7 +18,6 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.texteditor.ITextEditor;
 
-import prototype.link.api.Link;
 import prototype.link.api.Link.Direction;
 import prototype.link.api.LinkController;
 import prototype.link.ui.popup.LinkPopupDialog;
@@ -34,7 +33,7 @@ public class NavigateHandler {
 			IWorkbenchPage page,
 			@Named("prototype.link.ui.commandparameter.navigate") String directionParam) {
 
-		Direction direction = Link.BACKWARDS.equals(directionParam) ? Direction.FROM : Direction.TO;
+		Direction direction = "backwards".equals(directionParam) ? Direction.FROM : Direction.TO;
 
 		final IResource resource = Adapters.adapt(editorPart.getEditorInput(), IResource.class);
 
@@ -47,6 +46,7 @@ public class NavigateHandler {
 				Point point = text.getLocationAtOffset(caret);
 				point = text.toDisplay(point);
 
+				int startLine = textSelection.getStartLine();
 				int charStart = textSelection.getOffset();
 				int charEnd = charStart + textSelection.getLength();
 
@@ -55,7 +55,7 @@ public class NavigateHandler {
 					charStart = charEnd = caret;
 				}
 
-				IMarker marker = linkController.getMarkerAtSelection(resource, charStart, charEnd);
+				IMarker marker = linkController.getMarkerAtSelection(resource, charStart, charEnd, startLine);
 				
 				PopupDialog popupDialog = getPopupDialog(shell, page, marker, point, direction);
 				popupDialog.open();

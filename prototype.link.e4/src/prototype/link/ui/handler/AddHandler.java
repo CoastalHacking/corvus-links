@@ -37,7 +37,7 @@ public class AddHandler {
 		final String message = textSelection.getText();
 
 		// FIXME: execute logic via IWorkspace.run
-		IMarker marker = linkController.getMarkerAtSelection(resource, charStart, charEnd);
+		IMarker marker = linkController.getMarkerAtSelection(resource, lineNumber, charStart, charEnd);
 		if (marker == null) {
 			try {
 				// Resource listener creates link model when marker created 

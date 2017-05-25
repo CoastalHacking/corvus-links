@@ -10,7 +10,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import prototype.link.api.Link;
 import prototype.link.api.Link.Direction;
@@ -29,8 +29,8 @@ public abstract class AbstractLinkControllerImpl implements LinkController {
 	protected IWorkspace workspace;
 
 	
-	private final Object lock = new Object();
-	private AtomicReference<LinkMarker> atomicLastLinkMarker = new AtomicReference<>();
+	protected final Object lock = new Object();
+	protected AtomicReference<LinkMarker> atomicLastLinkMarker = new AtomicReference<>();
 
 	
 	/* (non-Javadoc)
@@ -52,28 +52,6 @@ public abstract class AbstractLinkControllerImpl implements LinkController {
 		
 	}
 	
-	public void addOrContinueLink(IMarker subject, boolean create) {
-		// TODO: refactor to use an EMF command and transaction
-		// Otherwise EMF requires external synchronization
-		synchronized (lock) {
-
-			LinkMarker linkMarker = getOrCreateLinkMarkerNoLock(subject, /*create*/true);
-
-			if (linkMarker == null)
-				return;
-			
-			// Now link with last marker
-			final LinkMarker lastLinkMarker = atomicLastLinkMarker.get();
-			if (lastLinkMarker != null) {
-				linkMarker.getFrom().add(lastLinkMarker);
-				lastLinkMarker.getTo().add(linkMarker);
-			}
-
-			// And replace last marker if it wasn't replaced
-			atomicLastLinkMarker.compareAndSet(lastLinkMarker, linkMarker);
-		}
-	}
-
 	/* (non-Javadoc)
 	 * @see prototype.link.api.LinkController#endLink()
 	 */
@@ -133,15 +111,16 @@ public abstract class AbstractLinkControllerImpl implements LinkController {
 				return;
 			}
 
-			// Remove empty leaves
-			resource.getMarkers().remove(linkMarker);
+			// Remove empty leaves; may incur performance issues
+			// @see http://eclipsesource.com/blogs/2015/05/26/emf-dos-and-donts-11/
+			EcoreUtil.delete(linkMarker, true);
 
 			if (resource.getMarkers().isEmpty()) {
-				container.getResources().remove(resource);
+				EcoreUtil.delete(resource, true);
 			}
 			
 			if (container.getResources().isEmpty()) {
-				root.getContainers().remove(container);
+				EcoreUtil.delete(container, true);
 			}
 			
 		}
@@ -157,7 +136,8 @@ public abstract class AbstractLinkControllerImpl implements LinkController {
 		List<IMarker> results = new ArrayList<>();
 
 		synchronized (lock) {
-			results = getMarkersNoLock(getLinkMarkersNoLock(subject, direction));
+			results = getMarkersNoLock(
+					getLinkMarkersNoLock(subject, direction));
 		}
 
 		return results;
@@ -167,33 +147,35 @@ public abstract class AbstractLinkControllerImpl implements LinkController {
 	 * @see prototype.link.api.LinkController#getMarkerAtSelection(org.eclipse.core.resources.IResource, int, int)
 	 */
 	@Override
-	public IMarker getMarkerAtSelection(IResource resource, int charStart, int charEnd) {
+	public IMarker getMarkerAtSelection(IResource resource, int charStart, int charEnd, int lineNumber) {
 		IMarker marker = null;
 
 		try {
 			for (IMarker m: resource.findMarkers(Link.LINK_TYPE, /*includeSubtypes*/true, /*?*/ IResource.DEPTH_ONE)) {
+				// ends are exclusive; starts are inclusive
+
 				final int markerCharStart = (Integer)m.getAttribute(IMarker.CHAR_START, -1);
 				final int markerCharEnd = (Integer)m.getAttribute(IMarker.CHAR_END, -1);
 
-				// if the start character is after this end character, skip
-				if (markerCharStart > charEnd)
+				// ignore if the subject marker starts before this one ends
+				if (markerCharEnd < charStart)
 					continue;
 
-				// if the end character is before this start character, skip
-				if (markerCharEnd < charStart)
+				// ignore if the subject marker ends before this one starts
+				if (charEnd < markerCharStart)
 					continue;
 
 				// keep lowest resource-relative ID
 				if (marker == null || marker.getId() > m.getId())
 					marker = m;
+				
 			}
 		} catch (CoreException e) {
 			// TODO: log
 			e.printStackTrace();
 		}
-		
-		
-		// TODO: verify the marker is in the model graph	
+
+		// TODO: verify the marker is in the model graph w/o locking
 		return marker;
 
 	}
@@ -230,6 +212,10 @@ public abstract class AbstractLinkControllerImpl implements LinkController {
 	
 	LinkMarker getOrCreateLinkMarkerNoLock(IMarker subject, boolean create) {
 		final long id = subject.getId();
+		final int charStart = subject.getAttribute(IMarker.CHAR_START, -1);
+		final int charEnd = subject.getAttribute(IMarker.CHAR_END, -1);
+		final int lineNumber = subject.getAttribute(IMarker.LINE_NUMBER, -1);
+		final String message = subject.getAttribute(IMarker.MESSAGE, "");
 		final IResource iResource = subject.getResource();
 		final String resourcePath = iResource.getProjectRelativePath().toPortableString();
 		final String containerPath = iResource.getParent().getFullPath().toPortableString();
@@ -283,6 +269,10 @@ public abstract class AbstractLinkControllerImpl implements LinkController {
 			if (create) {
 				result = LinksFactory.eINSTANCE.createLinkMarker();
 				result.setId(id);
+				result.setCharStart(charStart);
+				result.setCharEnd(charEnd);
+				result.setLineNumber(lineNumber);
+				result.setMessage(message);
 				markers.add(result);
 			} else {
 				return result;
@@ -301,7 +291,7 @@ public abstract class AbstractLinkControllerImpl implements LinkController {
 			String containerPath = lm.getResource().getContainer().getPortableFullPath();
 			final IResource containerResource = workspaceRoot.findMember(containerPath);
 			final IContainer container = containerResource.getAdapter(IContainer.class);
-			final IResource iResource = container.findMember(new Path(resourcePath));
+			final IResource iResource = container.findMember(resourcePath);
 			IMarker iMarker = iResource.getMarker(markerId);
 			if (iMarker != null) {
 				results.add(iMarker);
@@ -310,4 +300,27 @@ public abstract class AbstractLinkControllerImpl implements LinkController {
 		
 		return results;
 	}
+	
+	void addOrContinueLink(IMarker subject, boolean create) {
+		// TODO: refactor to use an EMF command and transaction
+		// Otherwise EMF requires external synchronization
+		synchronized (lock) {
+
+			LinkMarker linkMarker = getOrCreateLinkMarkerNoLock(subject, /*create*/true);
+
+			if (linkMarker == null)
+				return;
+			
+			// Now link with last marker
+			final LinkMarker lastLinkMarker = atomicLastLinkMarker.get();
+			if (lastLinkMarker != null) {
+				linkMarker.getFrom().add(lastLinkMarker);
+				lastLinkMarker.getTo().add(linkMarker);
+			}
+
+			// And replace last marker if it wasn't replaced
+			atomicLastLinkMarker.compareAndSet(lastLinkMarker, linkMarker);
+		}
+	}
+
 }

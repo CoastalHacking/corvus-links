@@ -272,6 +272,42 @@ public class LinksPackageImpl extends EPackageImpl implements LinksPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getLinkMarker_Message() {
+		return (EAttribute)linkMarkerEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLinkMarker_LineNumber() {
+		return (EAttribute)linkMarkerEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLinkMarker_CharStart() {
+		return (EAttribute)linkMarkerEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLinkMarker_CharEnd() {
+		return (EAttribute)linkMarkerEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public LinksFactory getLinksFactory() {
 		return (LinksFactory)getEFactoryInstance();
 	}
@@ -315,6 +351,10 @@ public class LinksPackageImpl extends EPackageImpl implements LinksPackage {
 		linkMarkerEClass = createEClass(LINK_MARKER);
 		createEReference(linkMarkerEClass, LINK_MARKER__TO);
 		createEReference(linkMarkerEClass, LINK_MARKER__FROM);
+		createEAttribute(linkMarkerEClass, LINK_MARKER__MESSAGE);
+		createEAttribute(linkMarkerEClass, LINK_MARKER__LINE_NUMBER);
+		createEAttribute(linkMarkerEClass, LINK_MARKER__CHAR_START);
+		createEAttribute(linkMarkerEClass, LINK_MARKER__CHAR_END);
 	}
 
 	/**
@@ -371,6 +411,10 @@ public class LinksPackageImpl extends EPackageImpl implements LinksPackage {
 		initEClass(linkMarkerEClass, LinkMarker.class, "LinkMarker", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLinkMarker_To(), this.getLinkMarker(), this.getLinkMarker_From(), "to", null, 0, -1, LinkMarker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLinkMarker_From(), this.getLinkMarker(), this.getLinkMarker_To(), "from", null, 0, -1, LinkMarker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLinkMarker_Message(), theEcorePackage.getEString(), "message", null, 0, 1, LinkMarker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLinkMarker_LineNumber(), theEcorePackage.getEInt(), "lineNumber", null, 0, 1, LinkMarker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLinkMarker_CharStart(), theEcorePackage.getEInt(), "charStart", null, 0, 1, LinkMarker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLinkMarker_CharEnd(), theEcorePackage.getEInt(), "charEnd", null, 0, 1, LinkMarker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

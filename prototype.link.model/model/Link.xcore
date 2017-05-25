@@ -31,5 +31,9 @@ class Marker {
 
 class LinkMarker extends Marker {
 	refers LinkMarker[] to opposite from 
-	refers LinkMarker[] from opposite to 	
+	refers LinkMarker[] from opposite to
+	String message
+	int lineNumber
+	int charStart
+	int charEnd
 }
