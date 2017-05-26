@@ -13,7 +13,6 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.ui.IEditorPart;
 
-import prototype.link.api.Link;
 import prototype.link.api.LinkController;
 
 
