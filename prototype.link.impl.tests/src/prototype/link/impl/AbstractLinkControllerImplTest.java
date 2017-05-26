@@ -194,7 +194,7 @@ public class AbstractLinkControllerImplTest extends AbstractLinkControllerImpl {
 		IResource resource = expected.getResource();
 		doReturn(markers).when(resource).findMarkers(eq(Link.LINK_TYPE), anyBoolean(), anyInt());
 
-		IMarker actual = this.getMarkerAtSelection(resource, charStart + 1, charEnd + 10, lineNo);
+		IMarker actual = this.getMarkerAtSelection(resource, charStart + 1, charEnd + 10);
 		assertEquals(expected, actual);
 	}
 	
@@ -211,7 +211,7 @@ public class AbstractLinkControllerImplTest extends AbstractLinkControllerImpl {
 		IResource resource = expected.getResource();
 		doReturn(markers).when(resource).findMarkers(eq(Link.LINK_TYPE), anyBoolean(), anyInt());
 
-		IMarker actual = this.getMarkerAtSelection(resource, charStart - 3, charStart, lineNo);
+		IMarker actual = this.getMarkerAtSelection(resource, charStart - 3, charStart);
 		assertEquals(expected, actual);
 	}
 	
@@ -228,7 +228,7 @@ public class AbstractLinkControllerImplTest extends AbstractLinkControllerImpl {
 		IResource resource = expected.getResource();
 		doReturn(markers).when(resource).findMarkers(eq(Link.LINK_TYPE), anyBoolean(), anyInt());
 
-		IMarker actual = this.getMarkerAtSelection(resource, charEnd, charEnd + 10, lineNo);
+		IMarker actual = this.getMarkerAtSelection(resource, charEnd, charEnd + 10);
 		assertEquals(expected, actual);
 	}
 

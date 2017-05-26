@@ -39,7 +39,7 @@ public class AddHandler {
 		// FIXME: execute logic via IWorkspace.run
 		// FIXME: this code cannot call any locking code, else a dead lock can asynchronously occur
 		// on the create or modifications
-		IMarker marker = linkController.getMarkerAtSelection(resource, charStart, charEnd, lineNumber);
+		IMarker marker = linkController.getMarkerAtSelection(resource, charStart, charEnd);
 		if (marker == null) {
 			try {
 				// Resource listener creates link model when marker created 

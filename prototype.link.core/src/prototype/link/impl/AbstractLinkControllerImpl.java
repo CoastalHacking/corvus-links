@@ -168,7 +168,7 @@ public abstract class AbstractLinkControllerImpl implements LinkController {
 	 *
 	 */
 	@Override
-	public IMarker getMarkerAtSelection(IResource resource, int charStart, int charEnd, int lineNumber) {
+	public IMarker getMarkerAtSelection(IResource resource, int charStart, int charEnd) {
 		IMarker marker = null;
 
 		try {

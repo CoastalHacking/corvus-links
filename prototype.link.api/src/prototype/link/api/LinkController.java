@@ -23,5 +23,5 @@ public interface LinkController {
 	
 	boolean hasMarkers(IMarker subject, Direction direction);
 	
-	IMarker getMarkerAtSelection(IResource resource, int charStart, int charEnd, int lineNumber);
+	IMarker getMarkerAtSelection(IResource resource, int charStart, int charEnd);
 }

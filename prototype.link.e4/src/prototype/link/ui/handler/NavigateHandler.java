@@ -46,7 +46,6 @@ public class NavigateHandler {
 				Point point = text.getLocationAtOffset(caret);
 				point = text.toDisplay(point);
 
-				int startLine = textSelection.getStartLine();
 				int charStart = textSelection.getOffset();
 				int charEnd = charStart + textSelection.getLength();
 
@@ -55,7 +54,7 @@ public class NavigateHandler {
 					charStart = charEnd = caret;
 				}
 
-				IMarker marker = linkController.getMarkerAtSelection(resource, charStart, charEnd, startLine);
+				IMarker marker = linkController.getMarkerAtSelection(resource, charStart, charEnd);
 				
 				PopupDialog popupDialog = getPopupDialog(shell, page, marker, point, direction);
 				popupDialog.open();
