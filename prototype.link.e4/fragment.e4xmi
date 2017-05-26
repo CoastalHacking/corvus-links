@@ -3,6 +3,7 @@
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_cMIE4Di8EeeInLWSGSkzuA" featurename="commands" parentElementId="xpath:/">
     <elements xsi:type="commands:Command" xmi:id="_14f8cDi8EeeInLWSGSkzuA" elementId="prototype.link.ui.command.addlink" commandName="Add Link"/>
     <elements xsi:type="commands:Command" xmi:id="_nwbLsDkCEeeInLWSGSkzuA" elementId="prototype.link.ui.command.endlink" commandName="End Link"/>
+    <elements xsi:type="commands:Command" xmi:id="_3h0HcEIvEeeqyo484ZFJDg" elementId="prototype.link.ui.command.removelink" commandName="Remove Link"/>
     <elements xsi:type="commands:Command" xmi:id="_oNrIYDkCEeeInLWSGSkzuA" elementId="prototype.link.ui.command.navigateforwards" commandName="Navigate Forwards">
       <parameters xmi:id="_EecpcDs_EeeVVdgpi9YxiA" elementId="prototype.link.ui.commandparameter.navigate" name="Navigate" optional="false"/>
     </elements>
@@ -13,6 +14,7 @@
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_r8ipoDi8EeeInLWSGSkzuA" featurename="handlers" parentElementId="xpath:/">
     <elements xsi:type="commands:Handler" xmi:id="_6gYtkDi8EeeInLWSGSkzuA" elementId="prototype.link.ui.handler.addlink" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.AddHandler" command="_14f8cDi8EeeInLWSGSkzuA"/>
     <elements xsi:type="commands:Handler" xmi:id="_BcdFADkDEeeInLWSGSkzuA" elementId="prototype.link.ui.handler.endlink" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.EndHandler" command="_nwbLsDkCEeeInLWSGSkzuA"/>
+    <elements xsi:type="commands:Handler" xmi:id="_8t8OEEIvEeeqyo484ZFJDg" elementId="prototype.link.ui.handler.removelink" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.RemoveHandler" command="_3h0HcEIvEeeqyo484ZFJDg"/>
     <elements xsi:type="commands:Handler" xmi:id="_B9IwMDkDEeeInLWSGSkzuA" elementId="prototype.link.ui.handler.navigateforwards" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.NavigateHandler" command="_oNrIYDkCEeeInLWSGSkzuA"/>
     <elements xsi:type="commands:Handler" xmi:id="_xm5UoDs-EeeVVdgpi9YxiA" elementId="prototype.link.ui.handler.navigatebackwards" contributionURI="bundleclass://prototype.link.ui/prototype.link.ui.handler.NavigateHandler" command="_riGgoDs-EeeVVdgpi9YxiA"/>
   </fragments>
@@ -21,6 +23,7 @@
       <children xsi:type="menu:Menu" xmi:id="_UHKTcDi9EeeInLWSGSkzuA" elementId="prototype.link.e4.menu.prototype" label="Links">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_gtbQYDi9EeeInLWSGSkzuA" elementId="prototype.link.e4.menu.addlink" label="Add Link" command="_14f8cDi8EeeInLWSGSkzuA"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_VXvHsDkDEeeInLWSGSkzuA" elementId="prototype.link.e4.menu.endlink" label="End Link" command="_nwbLsDkCEeeInLWSGSkzuA"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_B9YHYEIwEeeqyo484ZFJDg" elementId="prototype.link.e4.menu.removelink" label="Remove Link" command="_3h0HcEIvEeeqyo484ZFJDg"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_XkViIDkDEeeInLWSGSkzuA" elementId="prototype.link.ui.menu.navigateforwards" label="Navigate Forwards" command="_oNrIYDkCEeeInLWSGSkzuA">
           <parameters xmi:id="_YZdJ4DtAEeeVVdgpi9YxiA" elementId="prototype.link.ui.handlemenuparam.navigateforwards" name="prototype.link.ui.commandparameter.navigate" value="forwards"/>
         </children>
@@ -34,6 +37,7 @@
     <elements xsi:type="commands:BindingTable" xmi:id="_13FI4Dj4EeeInLWSGSkzuA" elementId="prototype.link.ui.bindingtable.0" bindingContext="_Fw5vADj-EeeInLWSGSkzuA">
       <bindings xmi:id="_CYv5sDj5EeeInLWSGSkzuA" elementId="prototype.link.ui.keybinding.addlink" keySequence="M1+L A" command="_14f8cDi8EeeInLWSGSkzuA"/>
       <bindings xmi:id="_jf_b0DkDEeeInLWSGSkzuA" elementId="prototype.link.ui.keybinding.endlink" keySequence="M1+L E" command="_nwbLsDkCEeeInLWSGSkzuA"/>
+      <bindings xmi:id="_J_lDQEIwEeeqyo484ZFJDg" elementId="prototype.link.ui.keybinding.removelink" keySequence="M1+L R" command="_3h0HcEIvEeeqyo484ZFJDg"/>
       <bindings xmi:id="_6w9QcDs-EeeVVdgpi9YxiA" elementId="prototype.link.ui.keybinding.navigateforward" keySequence="M1+]" command="_oNrIYDkCEeeInLWSGSkzuA">
         <parameters xmi:id="_NcoP8DtAEeeVVdgpi9YxiA" elementId="prototype.link.ui.keybindingparam.navigateforward" name="prototype.link.ui.commandparameter.navigate" value="forwards"/>
       </bindings>

@@ -17,7 +17,7 @@ import prototype.link.api.Link;
 import prototype.link.api.LinkController;
 
 
-public class AddHandler {
+public class RemoveHandler {
 	
 	@Inject LinkController linkController;
 
@@ -33,28 +33,19 @@ public class AddHandler {
 
 		final int charStart = textSelection.getOffset();
 		final int charEnd = textSelection.getOffset() + textSelection.getLength();
-		final int lineNumber = textSelection.getStartLine();
-		final String message = textSelection.getText();
 
 		// FIXME: execute logic via IWorkspace.run
 		// FIXME: this code cannot call any locking code, else a dead lock can asynchronously occur
 		// on the create or modifications
 		IMarker marker = linkController.getMarkerAtSelection(resource, charStart, charEnd);
-		if (marker == null) {
+		if (marker != null) {
 			try {
-				marker = resource.createMarker(Link.LINK_TYPE);
-				marker.setAttribute(IMarker.CHAR_START, charStart);
-				marker.setAttribute(IMarker.CHAR_END, charEnd);
-				marker.setAttribute(IMarker.LINE_NUMBER, lineNumber);
-				marker.setAttribute(IMarker.MESSAGE, message);
+				marker.delete();
 			} catch (CoreException e) {
 				// TODO: debug log 
 				e.printStackTrace();
 				return;
 			}
-		} else {
-			// otherwise we continue a previously added link
-			linkController.continueLink(marker);
 		}
 
 	}
