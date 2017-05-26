@@ -76,6 +76,6 @@ public class LinkResourceListenerComponent implements IResourceChangeListener {
 	}
 	
 	protected void handleMarkerChange(IMarker marker) {
-		linkController.changedLink(marker);
+		linkController.modifyLink(marker);
 	}
 }

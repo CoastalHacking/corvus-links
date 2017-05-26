@@ -1,11 +1,9 @@
 package prototype.link.impl;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.eq;
@@ -27,7 +25,6 @@ import org.junit.Test;
 
 import prototype.link.api.Link;
 import prototype.link.api.Link.Direction;
-import prototype.link.model.Container;
 import prototype.link.model.LinkMarker;
 import prototype.link.model.LinksFactory;
 
@@ -55,18 +52,19 @@ public class AbstractLinkControllerImplTest extends AbstractLinkControllerImpl {
 		String message = "text";
 		IMarker marker = createMarkerMock(expectedContainerPath, expectedResourcePath,
 				expectedMarkerId, charStart, charEnd, lineNo, message);
+		
+		LinkMarker linkMarker = this.getOrCreateLinkMarkerNoLock(marker, /*create*/ false);
+		assertNull(linkMarker);
 		this.addLink(marker);
-
-		assertFalse(root.eContents().isEmpty());
-		Container container = (Container) root.eContents().get(0);
-		assertEquals(expectedContainerPath, container.getPortableFullPath());		
-		assertEquals(expectedResourcePath, container.getResources().get(0).getPortableProjectRelativePath());
-		final LinkMarker linkMarker = (LinkMarker)container.getResources().get(0).getMarkers().get(0);
+		
+		linkMarker = this.getOrCreateLinkMarkerNoLock(marker, /*create*/ false);
+		assertNotNull(linkMarker);
 		assertEquals(expectedMarkerId, linkMarker.getId());
 		assertEquals(charStart, linkMarker.getCharStart());
 		assertEquals(charEnd, linkMarker.getCharEnd());
 		assertEquals(lineNo, linkMarker.getLineNumber());
 		assertEquals(message, linkMarker.getMessage());
+
 	}
 
 	/*
@@ -79,8 +77,7 @@ public class AbstractLinkControllerImplTest extends AbstractLinkControllerImpl {
 		this.addLink(markerZero);
 		this.endLink();
 
-		Container container = (Container) root.eContents().get(0);
-		LinkMarker linkZero = (LinkMarker)container.getResources().get(0).getMarkers().get(0);
+		final LinkMarker linkZero = this.getOrCreateLinkMarkerNoLock(markerZero, /*create*/ false);
 		assertEquals(linkZero.getTo().size(), 0);
 
 		this.continueLink(markerZero);
@@ -90,7 +87,7 @@ public class AbstractLinkControllerImplTest extends AbstractLinkControllerImpl {
 		this.addLink(markerOne);
 		this.endLink();
 
-		LinkMarker linkOne = (LinkMarker)container.getResources().get(0).getMarkers().get(1);
+		final LinkMarker linkOne = this.getOrCreateLinkMarkerNoLock(markerOne, /*create*/ false);
 		assertEquals(linkZero.getTo().size(), 1);
 		assertEquals(linkOne.getFrom().size(), 1);
 		assertEquals(linkZero.getTo().get(0), linkOne);
@@ -123,12 +120,10 @@ public class AbstractLinkControllerImplTest extends AbstractLinkControllerImpl {
 		this.addLink(markerTwo);
 		this.endLink();
 
-		Container container = (Container) root.eContents().get(0);
-		LinkMarker linkZero = (LinkMarker)container.getResources().get(0).getMarkers().get(0);
-		LinkMarker linkOne = (LinkMarker)container.getResources().get(0).getMarkers().get(1);
-		LinkMarker linkTwo = (LinkMarker)container.getResources().get(0).getMarkers().get(2);
+		LinkMarker linkZero = this.getOrCreateLinkMarkerNoLock(markerZero, /*create*/ false);
+		LinkMarker linkOne = this.getOrCreateLinkMarkerNoLock(markerOne, /*create*/ false);
+		LinkMarker linkTwo = this.getOrCreateLinkMarkerNoLock(markerTwo, /*create*/ false);
 
-		assertEquals(3, container.getResources().get(0).getMarkers().size());
 		assertEquals(1, linkZero.getTo().size());
 		assertEquals(linkOne, linkZero.getTo().get(0));
 		assertEquals(1, linkTwo.getFrom().size());
@@ -136,7 +131,6 @@ public class AbstractLinkControllerImplTest extends AbstractLinkControllerImpl {
 
 		this.removeLink(markerOne);
 		
-		assertEquals(2, container.getResources().get(0).getMarkers().size());
 		assertEquals(0, linkZero.getTo().size());
 		assertEquals(0, linkTwo.getFrom().size());
 
@@ -151,13 +145,14 @@ public class AbstractLinkControllerImplTest extends AbstractLinkControllerImpl {
 		this.addLink(markerZero);
 		this.endLink();
 
-		assertEquals(1, root.eContents().size());
-		Container container = (Container) root.eContents().get(0);
-		assertEquals(1, container.getResources().get(0).getMarkers().size());
+		LinkMarker linkZero = this.getOrCreateLinkMarkerNoLock(markerZero, /*create*/ false);
+
+		assertNotNull(linkZero);
 
 		this.removeLink(markerZero);
 
-		assertEquals(0, root.eContents().size());
+		linkZero = this.getOrCreateLinkMarkerNoLock(markerZero, /*create*/ false);
+		assertNull(linkZero);
 
 	}
 
@@ -258,31 +253,54 @@ public class AbstractLinkControllerImplTest extends AbstractLinkControllerImpl {
 	
 	@Test
 	public void shouldNotContinue() throws Exception {
-		fail("not implemented");
+		IMarker marker = createMarkerMock("/project", "resource.txt", 0, 5, 10, 2, "marker");
+		this.addLink(marker);
+		LinkMarker linkMarker = this.getOrCreateLinkMarkerNoLock(marker, /*create*/ false);
+		assertTrue(linkMarker.getTo().isEmpty());
+		assertTrue(linkMarker.getFrom().isEmpty());
+
+		this.continueLink(marker);
+
+		assertTrue(linkMarker.getTo().isEmpty());
+		assertTrue(linkMarker.getFrom().isEmpty());
 	}
-	
-	
+
 	@Test
 	public void shouldChange() throws Exception {
-		fail("not implemented");
+		IMarker marker = createMarkerMock("/project", "resource.txt", 0, -1, -1, -1, "");
+		this.addLink(marker);
+
+		final int expectedCharStart = 5;
+		when(marker.getAttribute(IMarker.CHAR_START, -1)).thenReturn(expectedCharStart);
+		this.modifyLink(marker);
+		LinkMarker linkMarker = this.getOrCreateLinkMarkerNoLock(marker, /*create*/ false);
+		assertEquals(expectedCharStart, linkMarker.getCharStart());
+		
+		final int expectedCharEnd = 10;
+		when(marker.getAttribute(IMarker.CHAR_END, -1)).thenReturn(expectedCharEnd);
+		this.modifyLink(marker);
+		linkMarker = this.getOrCreateLinkMarkerNoLock(marker, /*create*/ false);
+		assertEquals(expectedCharEnd, linkMarker.getCharEnd());
+		
+		final int expectedLineNo = 2;
+		when(marker.getAttribute(IMarker.LINE_NUMBER, -1)).thenReturn(expectedLineNo);
+		this.modifyLink(marker);
+		linkMarker = this.getOrCreateLinkMarkerNoLock(marker, /*create*/ false);
+		assertEquals(expectedLineNo, linkMarker.getLineNumber());
+		
+		final String message = "this is a message";
+		when(marker.getAttribute(IMarker.MESSAGE, "")).thenReturn(message);
+		this.modifyLink(marker);
+		linkMarker = this.getOrCreateLinkMarkerNoLock(marker, /*create*/ false);
+		assertEquals(message, linkMarker.getMessage());		
+
 	}
 
 	private IMarker createMarkerMock(String containerPath, String resourcePath, long markerId,
 			int charStart, int charEnd, int lineNo, String message) throws Exception {
-		IMarker marker = mock(IMarker.class);
-		doReturn(Link.LINK_TYPE).when(marker).getType();
 
 		IResource resource = createResource(containerPath, resourcePath);
-		when(resource.getMarker(markerId)).thenReturn(marker);
-
-		when(marker.getResource()).thenReturn(resource);
-		when(marker.getId()).thenReturn(markerId);
-		when(marker.getAttribute(IMarker.CHAR_START, -1)).thenReturn(charStart);
-		when(marker.getAttribute(IMarker.CHAR_END, -1)).thenReturn(charEnd);
-		when(marker.getAttribute(IMarker.LINE_NUMBER, -1)).thenReturn(lineNo);
-		when(marker.getAttribute(IMarker.MESSAGE, "")).thenReturn(message);
-
-		return marker;
+		return createMarkerMock(resource, markerId, charStart, charEnd, lineNo, message);
 	}
 
 	private IMarker createMarkerMock(IResource resource, long markerId,

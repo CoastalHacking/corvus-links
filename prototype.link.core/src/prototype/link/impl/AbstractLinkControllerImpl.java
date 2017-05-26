@@ -56,7 +56,7 @@ public abstract class AbstractLinkControllerImpl implements LinkController {
 	 * @see prototype.link.api.LinkController#changedLink(org.eclipse.core.resources.IMarker)
 	 */
 	@Override
-	public void changedLink(IMarker subject) {
+	public void modifyLink(IMarker subject) {
 		final int charStart = subject.getAttribute(IMarker.CHAR_START, -1);
 		final int charEnd = subject.getAttribute(IMarker.CHAR_END, -1);
 		final int lineNumber = subject.getAttribute(IMarker.LINE_NUMBER, -1);
