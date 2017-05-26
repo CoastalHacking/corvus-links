@@ -25,8 +25,7 @@ public class LinkControllerComponent extends AbstractLinkControllerImpl {
 
 	@Activate
 	void activate(BundleContext bc, Map<String,Object> config) {
-		final ResourceSet resourceSet = new ResourceSetImpl();
-		// FIXME: buggy af - not cleared out of workspace testing area
+		final ResourceSet resourceSet = new ResourceSetImpl(); 
 		final File file = bc.getBundle().getDataFile("model.links");
 		LinksPackage.eINSTANCE.eClass(); // loads the package in the registry
 		final URI uri = URI.createFileURI(file.getAbsolutePath());

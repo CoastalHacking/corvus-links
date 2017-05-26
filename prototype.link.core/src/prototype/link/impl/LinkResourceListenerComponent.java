@@ -49,7 +49,7 @@ public class LinkResourceListenerComponent implements IResourceChangeListener {
 						handleMarkerAdd(marker);
 						break;
 					case (IResourceDelta.CHANGED):
-						// ignored
+						handleMarkerChange(marker);
 						break;
 					case (IResourceDelta.REMOVED):
 						handleMarkerDelete(marker);
@@ -73,5 +73,9 @@ public class LinkResourceListenerComponent implements IResourceChangeListener {
 	
 	protected void handleMarkerAdd(IMarker marker) {
 		linkController.addLink(marker);
+	}
+	
+	protected void handleMarkerChange(IMarker marker) {
+		linkController.changedLink(marker);
 	}
 }

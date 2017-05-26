@@ -53,6 +53,26 @@ public abstract class AbstractLinkControllerImpl implements LinkController {
 	}
 	
 	/* (non-Javadoc)
+	 * @see prototype.link.api.LinkController#changedLink(org.eclipse.core.resources.IMarker)
+	 */
+	@Override
+	public void changedLink(IMarker subject) {
+		final int charStart = subject.getAttribute(IMarker.CHAR_START, -1);
+		final int charEnd = subject.getAttribute(IMarker.CHAR_END, -1);
+		final int lineNumber = subject.getAttribute(IMarker.LINE_NUMBER, -1);
+		final String message = subject.getAttribute(IMarker.MESSAGE, "");
+
+		synchronized (lock) {
+			LinkMarker linkMarker = getOrCreateLinkMarkerNoLock(subject, /*create*/false);
+
+			if (charStart != linkMarker.getCharStart()) linkMarker.setCharStart(charStart);
+			if (charEnd != linkMarker.getCharEnd()) linkMarker.setCharEnd(charEnd);
+			if (lineNumber != linkMarker.getLineNumber()) linkMarker.setLineNumber(lineNumber);
+			if (!message.equals(linkMarker.getMessage())) linkMarker.setMessage(message);
+		}
+	}
+
+	/* (non-Javadoc)
 	 * @see prototype.link.api.LinkController#endLink()
 	 */
 	@Override
@@ -145,6 +165,7 @@ public abstract class AbstractLinkControllerImpl implements LinkController {
 
 	/* (non-Javadoc)
 	 * @see prototype.link.api.LinkController#getMarkerAtSelection(org.eclipse.core.resources.IResource, int, int)
+	 *
 	 */
 	@Override
 	public IMarker getMarkerAtSelection(IResource resource, int charStart, int charEnd, int lineNumber) {
@@ -311,8 +332,12 @@ public abstract class AbstractLinkControllerImpl implements LinkController {
 			if (linkMarker == null)
 				return;
 			
-			// Now link with last marker
 			final LinkMarker lastLinkMarker = atomicLastLinkMarker.get();
+			
+			// don't continue on same marker
+			if (lastLinkMarker == linkMarker)
+				return;
+
 			if (lastLinkMarker != null) {
 				linkMarker.getFrom().add(lastLinkMarker);
 				lastLinkMarker.getTo().add(linkMarker);

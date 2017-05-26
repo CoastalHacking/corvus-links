@@ -16,6 +16,8 @@ public interface LinkController {
 	void endLink();
 
 	void removeLink(IMarker subject);
+	
+	void changedLink(IMarker subject);
 
 	List<IMarker> getMarkers(IMarker subject, Direction direction);
 	

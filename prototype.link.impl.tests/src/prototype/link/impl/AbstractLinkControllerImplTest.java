@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.eq;
@@ -253,6 +254,17 @@ public class AbstractLinkControllerImplTest extends AbstractLinkControllerImpl {
 		assertTrue(this.hasMarkers(markerZero, Direction.TO));
 		assertTrue(this.hasMarkers(markerOne, Direction.FROM));
 
+	}
+	
+	@Test
+	public void shouldNotContinue() throws Exception {
+		fail("not implemented");
+	}
+	
+	
+	@Test
+	public void shouldChange() throws Exception {
+		fail("not implemented");
 	}
 
 	private IMarker createMarkerMock(String containerPath, String resourcePath, long markerId,
