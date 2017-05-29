@@ -17,7 +17,7 @@
 			contributesToHeader="true"
 			highlightPreferenceKey="linkIndicationHighlighting"
 			highlightPreferenceValue="false"
-			icon="icons/fugue/shadowless/arrow-000-medium.png"
+			icon="icons/fugue/shadowless/chain.png"
 			includeOnPreferencePage="true"
 			isGoToNextNavigationTarget="true"
 			isGoToNextNavigationTargetKey="isLinkGoToNextNavigationTarget"
