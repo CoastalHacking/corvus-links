@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="prototype.link.feature"
-      label="Link Feature"
+      label="Corvus Links Feature"
       version="0.1.0.qualifier"
       provider-name="Coastal Hacking"
       license-feature="org.eclipse.license"
