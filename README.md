@@ -1,41 +1,21 @@
+# Corvus Link Prototype
 
-## Projects
+## Purpose
 
-### prototype.link
+Link an arbitrary location within a text document to another text location
 
-* General project, displaying in hierarchical view
+## Key Bindings
 
-### prototype.link.ui
+To add, end, or remove a link, press `Control`
+(Windows and Linux) or `Command` (Mac) + `L`, release, and then press:
 
-* Created using new plug-in project, makes UI contributions
-* New other -> Eclipse 4 -> Model -> New Model Fragment (defaults)
-* Created the handler by clicking on the handler "Class URI" link
+* `A` for adding a link or un-ending / continuing an existing link
+* `E` for ending a chain of links
+* `R` for removing a link
 
-The E4 context only supports IEditorPart, not ITextEditor
+To navigate a link, press `Control` / `Command` and then:
 
-### prototype.link.api
+* `[` to go to the previous / "from" / backwards links
+* `]` to go to the next / "to" / forwards links
 
-* Contains DTOs and interfaces used by UI
-* Using an ITextSelection DTO since its JavaDoc contract stipulates the
-  values change with the text selection, so we lock in those values via
-  the DTO. 
-
-### prototype.link.provider
-
-* Has context function for LinkController for depedency injection 
-
-[What are context functions?](http://www.vogella.com/tutorials/Eclipse4ContextFunctions/article.html#what-are-context-functions)
-
-> The context function registers itself for a certain key, for example a class
-> name. Whenever the Eclipse dependency injection does not find an existing
-> object under this key, it calls the compute() method of the context function.
-
-
-[Creation of a context function](http://www.vogella.com/tutorials/Eclipse4ContextFunctions/article.html#creation-of-a-context-function):
-
-> If the key is a class you have to point to the fully qualified class. This key
-> can be used for dependency injection. If you register a key which is not a
-> class name, a consumer of the injection can use the @Named annotation to
-> specify the key.
-
-* [Eclipse Dependency Injection](https://wiki.eclipse.org/Eclipse4/RCP/Dependency_Injection)
+And then select the link in the pop-up dialog

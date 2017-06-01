@@ -9,12 +9,6 @@
             type="org.eclipse.core.resources.textmarker">
       </super>
       <attribute
-            name="link.to">
-      </attribute>
-      <attribute
-            name="link.from">
-      </attribute>
-      <attribute
             name="message">
       </attribute>
       <persistent
