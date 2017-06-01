@@ -3,17 +3,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>prototype.link</groupId>
-	<artifactId>prototype.link.features</artifactId>
+	<groupId>us.coastalhacking.corvus.link</groupId>
+	<artifactId>us.coastalhacking.corvus.link.features</artifactId>
 	<packaging>pom</packaging>
 
 	<parent>
-		<groupId>prototype.link</groupId>
-		<artifactId>prototype.link.root</artifactId>
+		<groupId>us.coastalhacking.corvus.link</groupId>
+		<artifactId>us.coastalhacking.corvus.link.root</artifactId>
 		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 
 	<modules>
-		<module>prototype.link.feature</module>
+		<module>us.coastalhacking.corvus.link.feature</module>
 	</modules>
 </project>

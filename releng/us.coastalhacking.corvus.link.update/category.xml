@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/us.coastalhacking.corvus.link.feature_0.1.0.qualifier.jar" id="us.coastalhacking.corvus.link.feature" version="0.1.0.qualifier">
+      <category name="corvuslinks"/>
+   </feature>
+   <category-def name="corvuslinks" label="Corvus Links"/>
+</site>

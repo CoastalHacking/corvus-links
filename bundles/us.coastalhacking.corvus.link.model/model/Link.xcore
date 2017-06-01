@@ -1,0 +1,39 @@
+@GenModel(
+	fileExtensions="links",
+	prefix="Links"
+)
+@Ecore(
+	nsPrefix="us.coastalhacking.corvus.link.model",
+	nsURI="https://coastalhacking.us/corvus/links"
+)
+package us.coastalhacking.corvus.link.model
+
+class WorkspaceRoot {
+	contains Container[] containers opposite root
+}
+
+class Container {
+	String portableFullPath
+	container WorkspaceRoot root opposite containers
+	contains Resource[] resources opposite ^container
+}
+
+class Resource {
+	String portableProjectRelativePath
+	container Container ^container opposite resources
+	contains Marker[] markers opposite resource
+}
+
+class Marker {
+	long ^id
+	container Resource resource opposite markers
+}
+
+class LinkMarker extends Marker {
+	refers LinkMarker[] to opposite from 
+	refers LinkMarker[] from opposite to
+	String message
+	int lineNumber
+	int charStart
+	int charEnd
+}

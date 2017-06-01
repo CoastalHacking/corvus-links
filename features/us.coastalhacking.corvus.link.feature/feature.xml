@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="us.coastalhacking.corvus.link.feature"
+      label="Corvus Links Feature"
+      version="0.1.0.qualifier"
+      provider-name="Coastal Hacking"
+      license-feature="org.eclipse.license"
+      license-feature-version="1.0.1.v20140414-1359">
+
+   <description url="https://github.com/CoastalHacking/corvus-links">
+      Corvus Links
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <plugin
+         id="us.coastalhacking.corvus.link.api"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="us.coastalhacking.corvus.link.impl"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="us.coastalhacking.corvus.link.model"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="us.coastalhacking.corvus.link.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
