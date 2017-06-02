@@ -26,3 +26,6 @@ To navigate a link, press `Control` / `Command` and then:
 And then select the link in the pop-up dialog.
 
 Note: this overrides Eclipse's default forward / back navigation.
+
+## Acknowledgments
+
